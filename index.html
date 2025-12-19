@@ -184,19 +184,6 @@
                 </p>
             </div>
 
-            <!-- Welcome Video -->
-            <div class="mb-8">
-                <div class="video-container bg-gray-100 rounded-xl">
-                    <iframe 
-                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
-                        title="Welcome Video" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
             <!-- Instructions -->
             <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6 mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 What to Expect</h2>
@@ -274,7 +261,6 @@
             </div>
 
             <form id="participant-info-form" class="space-y-6">
-                <!-- Full Name -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Full Name <span class="text-red-500">*</span>
@@ -287,7 +273,6 @@
                         placeholder="Juan Dela Cruz">
                 </div>
 
-                <!-- Email -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Email Address
@@ -299,7 +284,6 @@
                         placeholder="juan@example.com">
                 </div>
 
-                <!-- Phone Number -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Phone Number <span class="text-red-500">*</span>
@@ -312,7 +296,6 @@
                         placeholder="09XX XXX XXXX">
                 </div>
 
-                <!-- Age Range -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Age Range <span class="text-red-500">*</span>
@@ -331,7 +314,6 @@
                     </select>
                 </div>
 
-                <!-- Ward Organization -->
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Ward Organization
@@ -349,14 +331,12 @@
                     </select>
                 </div>
 
-                <!-- Privacy Notice -->
                 <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-xl p-4">
                     <p class="text-sm text-gray-700">
                         🔒 <strong>Privacy:</strong> Your information will only be used by ward leaders and self-reliance specialists to provide personalized support and follow-up.
                     </p>
                 </div>
 
-                <!-- Submit Button -->
                 <div class="flex gap-4">
                     <button 
                         type="button"
@@ -374,8 +354,7 @@
         </div>
     </div>
 
-    <!-- REST OF THE SURVEY (SAME AS BEFORE) -->
-    <!-- Survey Screen -->
+    <!-- SURVEY SCREEN -->
     <div id="survey-screen" class="hidden w-full max-w-3xl">
         <div class="mb-8 fade-in-up">
             <div class="flex justify-between items-center mb-2">
@@ -400,11 +379,11 @@
                             <span id="q-number">1</span>
                         </div>
                         <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-900">
-                            Question text here
+                            Loading question...
                         </h2>
                     </div>
                     <p id="question-subtitle" class="text-gray-500 text-sm ml-13">
-                        Subtitle here
+                        Loading...
                     </p>
                 </div>
 
@@ -412,86 +391,372 @@
             </div>
 
             <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
-                <button id="back-btn" class="px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-100 smooth-transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                <button id="back-btn" onclick="handleBack()" class="px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-100 smooth-transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     ← Back
                 </button>
-                <button id="next-btn" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105" disabled>
+                <button id="next-btn" onclick="handleNext()" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105" disabled>
                     Next →
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Review, Bridge, Results, Thank You screens remain the same as previous version -->
-    <!-- I'll include placeholders for brevity -->
-    <div id="review-screen" class="hidden"></div>
-    <div id="bridge-screen" class="hidden"></div>
-    <div id="results-screen" class="hidden"></div>
-    <div id="thankyou-screen" class="hidden"></div>
+    <!-- REVIEW SCREEN -->
+    <div id="review-screen" class="hidden w-full max-w-4xl">
+        <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 fade-in-up">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-4 bounce-in">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Review Your Answers</h2>
+                <p class="text-gray-600">Section: <span id="review-section-name" class="font-semibold text-[#0d5c63]"></span></p>
+            </div>
+
+            <div id="review-content" class="max-h-96 overflow-y-auto space-y-3 mb-8 hide-scrollbar"></div>
+
+            <div class="flex justify-center gap-4">
+                <button onclick="editAnswers()" class="px-6 py-3 rounded-xl font-semibold text-[#0d5c63] border-2 border-[#0d5c63] hover:bg-[#78cdd7]/20 smooth-transition">
+                    Edit Answers
+                </button>
+                <button onclick="continueToNextSection()" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                    Continue to Next Section →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BRIDGE SCREEN -->
+    <div id="bridge-screen" class="hidden w-full max-w-3xl fade-in">
+        <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 text-center">
+            <div class="mb-8">
+                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-6 pulse">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Salamat! Thank you!</h2>
+                <p class="text-xl text-gray-600 mb-8">We're analyzing your responses...</p>
+            </div>
+
+            <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6">
+                <p class="text-gray-700 mb-4">
+                    <strong>Did you know?</strong> Members who participate in self-reliance programs report:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-left">
+                    <div class="flex items-start">
+                        <span class="text-2xl mr-3">📈</span>
+                        <div>
+                            <div class="font-bold text-[#0d5c63]">32%</div>
+                            <div class="text-sm">Improvement in providing for families</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-2xl mr-3">💪</span>
+                        <div>
+                            <div class="font-bold text-[#0d5c63]">56%</div>
+                            <div class="text-sm">Improvement in problem-solving with the Lord</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <div class="flex items-center justify-center space-x-2">
+                    <div class="w-3 h-3 bg-[#44a1a0] rounded-full animate-bounce"></div>
+                    <div class="w-3 h-3 bg-[#44a1a0] rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                    <div class="w-3 h-3 bg-[#44a1a0] rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                </div>
+                <p class="text-gray-500 mt-4">Your results will appear shortly...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="results-screen" class="hidden w-full max-w-5xl">
+        <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 fade-in-up">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-4 bounce-in">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold text-gray-900 mb-3">Your Self-Reliance Assessment</h1>
+                <p class="text-gray-600 text-lg">Here's your personalized self-reliance wheel</p>
+            </div>
+
+            <div class="mb-8">
+                <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-8">
+                    <canvas id="results-chart" class="max-w-2xl mx-auto"></canvas>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Detailed Breakdown</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Category</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Score</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scores-table" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border-l-4 border-amber-400 rounded-xl p-6 mb-8">
+                <h4 class="text-xl font-bold text-amber-900 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Recommended Programs for You
+                </h4>
+                <div id="recommendations-list" class="space-y-2 text-amber-900"></div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="window.print()" class="px-6 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 smooth-transition">
+                    📄 Save Results
+                </button>
+                <button onclick="showThankYou()" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                    Continue →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANK YOU SCREEN -->
+    <div id="thankyou-screen" class="hidden w-full max-w-4xl fade-in">
+        <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-6 bounce-in">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Salamat kaayo! Thank you!
+                </h1>
+                <p class="text-xl text-gray-600">
+                    Your journey to self-reliance starts here
+                </p>
+            </div>
+
+            <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">🎯 What Happens Next?</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#44a1a0] text-white flex items-center justify-center font-bold mr-4">1</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Save Your Results</h3>
+                            <p class="text-gray-600 text-sm">Download or print your assessment for future reference</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#44a1a0] text-white flex items-center justify-center font-bold mr-4">2</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Contact Your Ward Specialist</h3>
+                            <p class="text-gray-600 text-sm">Speak with your ward self-reliance specialist or bishop about programs</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#44a1a0] text-white flex items-center justify-center font-bold mr-4">3</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Join Our Community</h3>
+                            <p class="text-gray-600 text-sm">Connect with other members on their self-reliance journey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center space-y-4">
+                <p class="text-lg text-gray-700 font-medium">
+                    Remember: Self-reliance doesn't mean doing everything alone—<br>
+                    it means developing the ability to solve problems WITH the Lord's help.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                    <button onclick="window.print()" class="px-6 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 smooth-transition">
+                        📄 Download Results
+                    </button>
+                    <button onclick="location.reload()" class="px-6 py-3 rounded-xl font-semibold text-[#0d5c63] border-2 border-[#0d5c63] hover:bg-[#78cdd7]/20 smooth-transition">
+                        🔄 Retake Survey
+                    </button>
+                </div>
+                
+                <p class="text-sm text-gray-500 mt-6">
+                    Pagbuhat! Let's do this together! 🙏
+                </p>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <script>
-// Configuration (same as before)
+// ===== COMPLETE SURVEY CONFIGURATION =====
 const sections = [
-    // ALL 7 sections with COMPLETE data:
-    { Career: 5 questions },
-    { Financial: 5 questions },
-    { Home: 5 questions },
-    { Health: 5 questions },
-    { Spiritual: 5 questions },
-    { Education: 5 questions },
-    { Program Awareness: 4 questions }
+    {
+        title: "Career Development",
+        icon: "💼",
+        type: "rating",
+        questions: [
+            "I have clear career goals and a plan to achieve them.",
+            "I am actively developing skills that improve my employability.",
+            "I feel confident in my ability to find or maintain meaningful work.",
+            "I regularly seek opportunities for professional growth.",
+            "I use my talents to contribute positively to my workplace."
+        ]
+    },
+    {
+        title: "Financial & Resource Management",
+        icon: "💰",
+        type: "rating",
+        questions: [
+            "I create and follow a monthly budget.",
+            "I save money regularly for future needs or emergencies.",
+            "I manage debt responsibly and avoid unnecessary borrowing.",
+            "I understand how to prioritize financial needs over wants.",
+            "I feel confident in my ability to provide for myself financially."
+        ]
+    },
+    {
+        title: "Home Production & Storage",
+        icon: "🏠",
+        type: "rating",
+        questions: [
+            "I prepare and store food/supplies for emergencies.",
+            "I know how to prepare nutritious meals using basic ingredients.",
+            "I maintain a clean, organized, and safe home environment.",
+            "I practice skills like gardening, sewing, or repairing items.",
+            "I plan ahead to ensure my household has what it needs."
+        ]
+    },
+    {
+        title: "Physical Health",
+        icon: "🏃",
+        type: "rating",
+        questions: [
+            "I eat a balanced diet and stay hydrated.",
+            "I engage in regular physical activity.",
+            "I get adequate rest and manage stress effectively.",
+            "I avoid harmful substances and habits.",
+            "I seek medical care and preventive checkups when needed."
+        ]
+    },
+    {
+        title: "Social-Emotional & Spiritual",
+        icon: "❤️",
+        type: "rating",
+        questions: [
+            "I maintain positive relationships with family and friends.",
+            "I manage emotions in healthy and constructive ways.",
+            "I find peace/purpose through spiritual practices.",
+            "I serve others and contribute to my community.",
+            "I feel hopeful and resilient when facing challenges."
+        ]
+    },
+    {
+        title: "Literacy & Education",
+        icon: "📚",
+        type: "rating",
+        questions: [
+            "I can read, write, and communicate effectively.",
+            "I actively seek opportunities to learn new things.",
+            "I use technology resources to improve my knowledge.",
+            "I encourage learning and education within my family.",
+            "I set personal goals for continued education."
+        ]
+    },
+    {
+        title: "Program Awareness & Access",
+        icon: "🔍",
+        type: "mixed",
+        questions: [
+            {
+                type: "checkbox",
+                text: "Which of these church self-reliance programs have you heard of?",
+                subtitle: "Check all that apply (programs marked with * are community-supported)",
+                options: [
+                    "Starting & Growing My Business",
+                    "Finding a Better Job That Will Lead to a Career",
+                    "Freelance Training",
+                    "ACE Academy*",
+                    "Personal Finance Training",
+                    "Success & Money Foundation*",
+                    "Humanitarian Member Welfare Project",
+                    "Food Preservation*",
+                    "Child Nutrition Program",
+                    "Family Services",
+                    "Institute & Seminary",
+                    "My Plan",
+                    "PEF (Perpetual Education Fund) Program",
+                    "Bensons Scholarship (Agriculture)",
+                    "English Connect",
+                    "BYU Pathway",
+                    "GEC (Global Education Center)",
+                    "I haven't heard of any of these programs"
+                ]
+            },
+            {
+                type: "checkbox",
+                text: "What prevents you from joining church programs?",
+                subtitle: "Check all that apply",
+                options: [
+                    "I don't know these programs exist",
+                    "I don't think they're for people like me",
+                    "I don't have time",
+                    "Transportation is difficult",
+                    "I'm not sure how to sign up",
+                    "Language barriers (programs not in Cebuano)",
+                    "I'm embarrassed to ask for help",
+                    "I've tried but didn't find them helpful",
+                    "Nothing prevents me—I'm interested!"
+                ]
+            },
+            {
+                type: "radio",
+                text: "How do you prefer to learn about church programs?",
+                subtitle: "Select one option",
+                options: [
+                    "Personal invitation from bishop/leader",
+                    "Announcement during sacrament meeting",
+                    "WhatsApp/Viber group messages",
+                    "Printed flyers or posters",
+                    "Ward website or bulletin",
+                    "From other ward members"
+                ]
+            },
+            {
+                type: "radio",
+                text: "Have you ever attended a Self-Reliance group meeting?",
+                subtitle: "Select one option",
+                options: [
+                    "Yes, and it was helpful",
+                    "Yes, but it wasn't what I expected",
+                    "No, but I'm interested",
+                    "No, I didn't know they existed"
+                ]
+            }
+        ]
+    }
 ];
 
-// Store participant info
+// ===== STATE MANAGEMENT =====
 let participantData = {};
-
-// Show participant form
-function showParticipantForm() {
-    document.getElementById('welcome-screen').classList.add('hidden');
-    document.getElementById('participant-form').classList.remove('hidden');
-}
-
-// Back to welcome
-function backToWelcome() {
-    document.getElementById('participant-form').classList.add('hidden');
-    document.getElementById('welcome-screen').classList.remove('hidden');
-}
-
-// Handle form submission
-document.getElementById('participant-info-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Collect participant data
-    participantData = {
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        ageRange: document.getElementById('ageRange').value,
-        organization: document.getElementById('organization').value,
-        timestamp: new Date().toISOString(),
-        surveyId: generateSurveyId()
-    };
-    
-    // Start survey
-    startSurvey();
-});
-
-// Generate unique survey ID
-function generateSurveyId() {
-    return 'SURVEY_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-}
-
-// State management
 let currentSectionIndex = 0;
 let currentQuestionIndex = 0;
 let responses = [];
 let totalQuestions = 35;
 let currentQuestionNumber = 1;
 
-// Initialize responses
+// ===== INITIALIZATION =====
 function initializeResponses() {
+    responses = [];
     sections.forEach(section => {
         if (section.type === 'rating') {
             responses.push(new Array(section.questions.length).fill(null));
@@ -501,7 +766,34 @@ function initializeResponses() {
     });
 }
 
-// Start survey
+// ===== PARTICIPANT FORM =====
+function showParticipantForm() {
+    document.getElementById('welcome-screen').classList.add('hidden');
+    document.getElementById('participant-form').classList.remove('hidden');
+}
+
+function backToWelcome() {
+    document.getElementById('participant-form').classList.add('hidden');
+    document.getElementById('welcome-screen').classList.remove('hidden');
+}
+
+document.getElementById('participant-info-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    participantData = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        ageRange: document.getElementById('ageRange').value,
+        organization: document.getElementById('organization').value,
+        timestamp: new Date().toISOString(),
+        surveyId: 'SURVEY_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    };
+    
+    startSurvey();
+});
+
+// ===== START SURVEY =====
 function startSurvey() {
     document.getElementById('participant-form').classList.add('hidden');
     document.getElementById('survey-screen').classList.remove('hidden');
@@ -510,7 +802,470 @@ function startSurvey() {
     updateProgress();
 }
 
-// When survey is complete, send data to Google Sheets
+// ===== RENDER QUESTION =====
+function renderQuestion() {
+    const section = sections[currentSectionIndex];
+    const question = section.questions[currentQuestionIndex];
+    
+    // Update section badge
+    document.getElementById('section-badge').innerHTML = `
+        <span class="text-xl mr-2">${section.icon}</span>
+        <span>${section.title}</span>
+    `;
+    
+    // Update question number
+    document.getElementById('q-number').textContent = currentQuestionNumber;
+    
+    // Render based on question type
+    if (section.type === 'rating') {
+        renderRatingQuestion(question);
+    } else {
+        renderMixedQuestion(question);
+    }
+    
+    updateButtons();
+    updateProgress();
+}
+
+function renderRatingQuestion(question) {
+    document.getElementById('question-text').textContent = question;
+    document.getElementById('question-subtitle').textContent = 'Rate how consistently this applies to you';
+    
+    const container = document.getElementById('answer-container');
+    container.innerHTML = '';
+    
+    const ratingDiv = document.createElement('div');
+    ratingDiv.className = 'grid grid-cols-5 gap-3';
+    
+    const labels = ['Not at all', 'Rarely', 'Sometimes', 'Often', 'Consistently'];
+    
+    for (let i = 1; i <= 5; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'rating-btn flex flex-col items-center justify-center p-6 rounded-2xl border-2 focus:outline-none focus:ring-4 focus:ring-[#78cdd7]/30';
+        
+        const isSelected = responses[currentSectionIndex][currentQuestionIndex] === i;
+        
+        if (isSelected) {
+            btn.classList.add('selected', 'bg-gradient-to-br', 'from-[#44a1a0]', 'to-[#0d5c63]', 'text-white', 'border-transparent');
+        } else {
+            btn.classList.add('bg-white', 'border-gray-200', 'hover:border-[#44a1a0]');
+        }
+        
+        btn.innerHTML = `
+            <span class="text-3xl font-bold mb-2">${i}</span>
+            <span class="text-xs font-medium">${labels[i-1]}</span>
+        `;
+        
+        btn.onclick = () => selectRating(i);
+        ratingDiv.appendChild(btn);
+    }
+    
+    container.appendChild(ratingDiv);
+}
+
+function renderMixedQuestion(question) {
+    document.getElementById('question-text').textContent = question.text;
+    document.getElementById('question-subtitle').textContent = question.subtitle;
+    
+    const container = document.getElementById('answer-container');
+    container.innerHTML = '';
+    
+    if (question.type === 'checkbox') {
+        renderCheckboxOptions(question.options, container);
+    } else {
+        renderRadioOptions(question.options, container);
+    }
+}
+
+function renderCheckboxOptions(options, container) {
+    const currentAnswers = responses[currentSectionIndex][currentQuestionIndex] || [];
+    
+    options.forEach((option) => {
+        const isChecked = currentAnswers.includes(option);
+        const label = document.createElement('label');
+        label.className = 'flex items-center p-4 rounded-xl border-2 cursor-pointer smooth-transition';
+        
+        if (isChecked) {
+            label.classList.add('border-[#44a1a0]', 'bg-[#78cdd7]/10');
+        } else {
+            label.classList.add('border-gray-200', 'hover:border-[#44a1a0]', 'bg-white');
+        }
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'custom-checkbox';
+        checkbox.value = option;
+        checkbox.checked = isChecked;
+        checkbox.onchange = handleCheckboxChange;
+        
+        const span = document.createElement('span');
+        span.className = 'ml-3 text-gray-700 font-medium';
+        span.textContent = option;
+        
+        label.appendChild(checkbox);
+        label.appendChild(span);
+        container.appendChild(label);
+    });
+}
+
+function handleCheckboxChange() {
+    const container = document.getElementById('answer-container');
+    const checked = Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+    responses[currentSectionIndex][currentQuestionIndex] = checked.length > 0 ? checked : null;
+    updateButtons();
+}
+
+function renderRadioOptions(options, container) {
+    const currentAnswer = responses[currentSectionIndex][currentQuestionIndex];
+    const groupName = `radio-q${currentSectionIndex}-${currentQuestionIndex}`;
+    
+    options.forEach((option) => {
+        const isChecked = currentAnswer === option;
+        const label = document.createElement('label');
+        label.className = 'flex items-center p-4 rounded-xl border-2 cursor-pointer smooth-transition';
+        
+        if (isChecked) {
+            label.classList.add('border-[#44a1a0]', 'bg-[#78cdd7]/10');
+        } else {
+            label.classList.add('border-gray-200', 'hover:border-[#44a1a0]', 'bg-white');
+        }
+        
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = groupName;
+        radio.className = 'custom-radio';
+        radio.value = option;
+        radio.checked = isChecked;
+        radio.onchange = () => handleRadioChange(option);
+        
+        const span = document.createElement('span');
+        span.className = 'ml-3 text-gray-700 font-medium';
+        span.textContent = option;
+        
+        label.appendChild(radio);
+        label.appendChild(span);
+        container.appendChild(label);
+    });
+}
+
+function handleRadioChange(value) {
+    responses[currentSectionIndex][currentQuestionIndex] = value;
+    updateButtons();
+    
+    // Re-render to update styling
+    setTimeout(() => {
+        const section = sections[currentSectionIndex];
+        const question = section.questions[currentQuestionIndex];
+        const container = document.getElementById('answer-container');
+        container.innerHTML = '';
+        renderRadioOptions(question.options, container);
+    }, 100);
+}
+
+function selectRating(value) {
+    responses[currentSectionIndex][currentQuestionIndex] = value;
+    updateButtons();
+    renderQuestion();
+    
+    // Auto-advance after selection
+    setTimeout(() => {
+        if (responses[currentSectionIndex][currentQuestionIndex] !== null) {
+            handleNext();
+        }
+    }, 500);
+}
+
+// ===== NAVIGATION =====
+function updateButtons() {
+    const backBtn = document.getElementById('back-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    backBtn.disabled = currentQuestionNumber === 1;
+    
+    const hasAnswer = responses[currentSectionIndex][currentQuestionIndex] !== null;
+    nextBtn.disabled = !hasAnswer;
+}
+
+function updateProgress() {
+    const percent = Math.round((currentQuestionNumber / totalQuestions) * 100);
+    document.getElementById('current-q').textContent = currentQuestionNumber;
+    document.getElementById('total-q').textContent = totalQuestions;
+    document.getElementById('progress-percent').textContent = percent;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
+}
+
+function handleBack() {
+    if (currentQuestionNumber === 1) return;
+    
+    currentQuestionNumber--;
+    
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+    } else {
+        currentSectionIndex--;
+        const prevSection = sections[currentSectionIndex];
+        currentQuestionIndex = prevSection.questions.length - 1;
+    }
+    
+    addTransition(() => {
+        renderQuestion();
+    });
+}
+
+function handleNext() {
+    const section = sections[currentSectionIndex];
+    
+    if (currentQuestionIndex === section.questions.length - 1) {
+        showReview();
+    } else {
+        currentQuestionIndex++;
+        currentQuestionNumber++;
+        addTransition(() => {
+            renderQuestion();
+        });
+    }
+}
+
+function addTransition(callback) {
+    const container = document.getElementById('question-container');
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        callback();
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+    }, 200);
+}
+
+// ===== REVIEW SCREEN =====
+function showReview() {
+    const section = sections[currentSectionIndex];
+    document.getElementById('review-section-name').textContent = section.title;
+    
+    const reviewContent = document.getElementById('review-content');
+    reviewContent.innerHTML = '';
+    
+    section.questions.forEach((q, index) => {
+        const answer = responses[currentSectionIndex][index];
+        const div = document.createElement('div');
+        div.className = 'p-4 bg-gray-50 rounded-xl';
+        
+        let answerText = '';
+        if (section.type === 'rating') {
+            answerText = `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-[#78cdd7]/30 text-[#0d5c63]">${answer} / 5</span>`;
+        } else if (Array.isArray(answer)) {
+            answerText = answer.map(a => `<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#78cdd7]/30 text-[#0d5c63] mr-2 mb-1">${a}</span>`).join('');
+        } else {
+            answerText = `<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-[#78cdd7]/30 text-[#0d5c63]">${answer}</span>`;
+        }
+        
+        div.innerHTML = `
+            <p class="text-sm font-medium text-gray-700 mb-2">${typeof q === 'string' ? q : q.text}</p>
+            <div>${answerText}</div>
+        `;
+        
+        reviewContent.appendChild(div);
+    });
+    
+    document.getElementById('survey-screen').classList.add('hidden');
+    document.getElementById('review-screen').classList.remove('hidden');
+}
+
+function editAnswers() {
+    document.getElementById('review-screen').classList.add('hidden');
+    document.getElementById('survey-screen').classList.remove('hidden');
+    currentQuestionIndex = 0;
+    currentQuestionNumber -= sections[currentSectionIndex].questions.length - 1;
+    renderQuestion();
+}
+
+function continueToNextSection() {
+    currentSectionIndex++;
+    currentQuestionIndex = 0;
+    currentQuestionNumber++;
+    
+    if (currentSectionIndex >= sections.length) {
+        showBridge();
+    } else {
+        document.getElementById('review-screen').classList.add('hidden');
+        document.getElementById('survey-screen').classList.remove('hidden');
+        addTransition(() => {
+            renderQuestion();
+        });
+    }
+}
+
+// ===== BRIDGE SCREEN =====
+function showBridge() {
+    document.getElementById('review-screen').classList.add('hidden');
+    document.getElementById('bridge-screen').classList.remove('hidden');
+    
+    setTimeout(() => {
+        showResults();
+    }, 5000);
+}
+
+// ===== RESULTS SCREEN =====
+function showResults() {
+    const averages = responses.slice(0, 6).map(answers => {
+        const sum = answers.reduce((a, b) => a + b, 0);
+        return (sum / answers.length).toFixed(1);
+    });
+    
+    document.getElementById('bridge-screen').classList.add('hidden');
+    document.getElementById('results-screen').classList.remove('hidden');
+    
+    renderChart(averages);
+    renderScoresTable(averages);
+    generateRecommendations(averages);
+}
+
+function renderChart(averages) {
+    const ctx = document.getElementById('results-chart').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: sections.slice(0, 6).map(s => s.title),
+            datasets: [{
+                label: 'Your Score',
+                data: averages,
+                backgroundColor: 'rgba(68, 161, 160, 0.2)',
+                borderColor: 'rgba(13, 92, 99, 1)',
+                borderWidth: 3,
+                pointBackgroundColor: 'rgba(13, 92, 99, 1)',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        backdropColor: 'transparent',
+                        font: { size: 12 }
+                    },
+                    grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                    angleLines: { color: 'rgba(0, 0, 0, 0.05)' },
+                    pointLabels: {
+                        font: { size: 14, weight: '600' },
+                        color: '#374151'
+                    }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+function renderScoresTable(averages) {
+    const tbody = document.getElementById('scores-table');
+    tbody.innerHTML = '';
+    
+    averages.forEach((score, i) => {
+        let status, statusColor;
+        if (score >= 4.5) {
+            status = 'Excellent';
+            statusColor = 'text-green-600 bg-green-50';
+        } else if (score >= 3.5) {
+            status = 'Good';
+            statusColor = 'text-blue-600 bg-blue-50';
+        } else if (score >= 2.5) {
+            status = 'Needs Work';
+            statusColor = 'text-yellow-600 bg-yellow-50';
+        } else {
+            status = 'Critical';
+            statusColor = 'text-red-600 bg-red-50';
+        }
+        
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-50';
+        row.innerHTML = `
+            <td class="px-6 py-4">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-3">${sections[i].icon}</span>
+                    <span class="font-semibold text-gray-900">${sections[i].title}</span>
+                </div>
+            </td>
+            <td class="px-6 py-4">
+                <span class="text-lg font-bold" style="color: #0d5c63">${score}</span>
+                <span class="text-sm text-gray-500"> / 5.0</span>
+            </td>
+            <td class="px-6 py-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${statusColor}">
+                    ${status}
+                </span>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function generateRecommendations(scores) {
+    const list = document.getElementById('recommendations-list');
+    const recommendations = [];
+    
+    if (scores[0] < 3.5) {
+        recommendations.push("💼 <strong>Finding a Better Job That Will Lead to a Career</strong> – Career development and job search skills");
+        recommendations.push("🚀 <strong>Starting & Growing My Business</strong> – Entrepreneurship and business fundamentals");
+        recommendations.push("💻 <strong>Freelance Training</strong> – Learn skills for freelance work");
+    }
+    
+    if (scores[1] < 3.5) {
+        recommendations.push("💰 <strong>Personal Finance Training</strong> – Budgeting, saving, and money management");
+        recommendations.push("📊 <strong>Success & Money Foundation</strong> – Financial literacy and wealth building");
+    }
+    
+    if (scores[2] < 3.5) {
+        recommendations.push("🏠 <strong>Humanitarian Member Welfare Project</strong> – Community support and resource sharing");
+        recommendations.push("🥫 <strong>Food Preservation</strong> – Learn to store and preserve food");
+    }
+    
+    if (scores[3] < 3.5) {
+        recommendations.push("👶 <strong>Child Nutrition Program</strong> – Healthy eating for families");
+    }
+    
+    if (scores[4] < 3.5) {
+        recommendations.push("❤️ <strong>Family Services</strong> – Counseling and emotional support");
+        recommendations.push("📖 <strong>Institute & Seminary</strong> – Spiritual education and growth");
+        recommendations.push("🎯 <strong>My Plan</strong> – Personal goal setting and planning");
+    }
+    
+    if (scores[5] < 3.5) {
+        recommendations.push("🎓 <strong>PEF (Perpetual Education Fund)</strong> – Education loans and support");
+        recommendations.push("🌾 <strong>Bensons Scholarship (Agriculture)</strong> – Scholarships for agricultural studies");
+        recommendations.push("🗣️ <strong>English Connect</strong> – English language learning");
+        recommendations.push("🏫 <strong>BYU Pathway</strong> – Online certificates and degrees");
+        recommendations.push("🌍 <strong>GEC (Global Education Center)</strong> – Educational resources");
+    }
+    
+    if (recommendations.length === 0) {
+        list.innerHTML = '<p class="font-medium">🎉 Great job! Your scores show strong self-reliance. Consider mentoring others!</p>';
+    } else {
+        list.innerHTML = recommendations.map(r => `<p class="flex items-start"><span class="mr-2">•</span><span>${r}</span></p>`).join('');
+        list.innerHTML += '<p class="mt-4 pt-4 border-t border-amber-200 font-semibold">📞 Next Step: Contact your ward self-reliance specialist or bishop to learn more!</p>';
+    }
+}
+
+// ===== THANK YOU SCREEN =====
+function showThankYou() {
+    submitSurveyData();
+    document.getElementById('results-screen').classList.add('hidden');
+    document.getElementById('thankyou-screen').classList.remove('hidden');
+}
+
+// ===== SUBMIT DATA TO GOOGLE SHEETS =====
 async function submitSurveyData() {
     const surveyData = {
         ...participantData,
@@ -519,7 +1274,6 @@ async function submitSurveyData() {
     };
     
     try {
-        // Google Apps Script Web App URL (you'll create this)
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwSlUeDjba0PpYyFZ2e3C3bgMB692TeTFDjXvr_V7f84FrxvtASQiJ0HILwaFegycyrpw/exec';
         
         const response = await fetch(scriptURL, {
@@ -534,27 +1288,8 @@ async function submitSurveyData() {
         console.log('Survey data submitted successfully');
     } catch (error) {
         console.error('Error submitting survey:', error);
-        // Store in localStorage as backup
         localStorage.setItem('survey_' + participantData.surveyId, JSON.stringify(surveyData));
     }
-}
-
-// Rest of your survey functions (renderQuestion, handleNext, etc.) remain the same
-// Call submitSurveyData() when showing thank you screen
-
-function renderQuestion() {
-    // Same as before
-}
-
-function handleNext() {
-    // Same as before
-}
-
-// Add this call when survey is complete
-function showThankYou() {
-    submitSurveyData(); // Submit data when showing thank you
-    document.getElementById('results-screen').classList.add('hidden');
-    document.getElementById('thankyou-screen').classList.remove('hidden');
 }
 </script>
 
