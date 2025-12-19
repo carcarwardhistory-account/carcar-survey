@@ -161,6 +161,20 @@
         height: 100%;
         border-radius: 12px;
     }
+    
+    .lang-btn {
+        transition: all 0.3s ease;
+    }
+    
+    .lang-btn.active {
+        background: var(--tropical-teal) !important;
+        color: white !important;
+        transform: scale(1.05);
+    }
+    
+    .lang-btn:hover {
+        transform: translateY(-2px);
+    }
 </style>
 </head>
 <body class="bg-gradient-to-br from-[#78cdd7] via-[#44a1a0] to-[#0d5c63] min-h-screen">
@@ -171,78 +185,89 @@
     <div id="welcome-screen" class="w-full max-w-4xl fade-in">
         <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12">
             <div class="text-center mb-8">
+                <!-- Language Switcher -->
+                <div class="flex justify-center gap-2 mb-6">
+                    <button id="lang-en" onclick="switchLanguage('en')" class="lang-btn active px-4 py-2 rounded-lg font-semibold text-sm border-2 border-[#44a1a0] bg-[#44a1a0] text-white smooth-transition hover:bg-[#0d5c63]">
+                        English
+                    </button>
+                    <button id="lang-ceb" onclick="switchLanguage('ceb')" class="lang-btn px-4 py-2 rounded-lg font-semibold text-sm border-2 border-[#44a1a0] text-[#44a1a0] bg-white smooth-transition hover:bg-[#78cdd7]/20">
+                        Cebuano
+                    </button>
+                    <button id="lang-tl" onclick="switchLanguage('tl')" class="lang-btn px-4 py-2 rounded-lg font-semibold text-sm border-2 border-[#44a1a0] text-[#44a1a0] bg-white smooth-transition hover:bg-[#78cdd7]/20">
+                        Tagalog
+                    </button>
+                </div>
+                
                 <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-6 bounce-in">
                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                <h1 id="welcome-title" class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                     Carcar Ward<br>Self-Reliance Assessment
                 </h1>
-                <p class="text-xl text-gray-600 mb-6">
+                <p id="welcome-greeting" class="text-xl text-gray-600 mb-6">
                     Maayong adlaw! / Good day!
                 </p>
             </div>
 
-            <!-- Instructions -->
             <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6 mb-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 What to Expect</h2>
+                <h2 id="what-to-expect" class="text-2xl font-bold text-gray-900 mb-4">📋 What to Expect</h2>
                 <ul class="space-y-3 text-gray-700">
                     <li class="flex items-start">
                         <span class="text-2xl mr-3">⏱️</span>
-                        <span><strong>Time:</strong> About 10-15 minutes</span>
+                        <span><strong id="time-label">Time:</strong> <span id="time-value">About 10-15 minutes</span></span>
                     </li>
                     <li class="flex items-start">
                         <span class="text-2xl mr-3">🎯</span>
-                        <span><strong>Questions:</strong> 35 questions about your self-reliance journey</span>
+                        <span><strong id="questions-label">Questions:</strong> <span id="questions-value">35 questions about your self-reliance journey</span></span>
                     </li>
                     <li class="flex items-start">
                         <span class="text-2xl mr-3">🔒</span>
-                        <span><strong>Privacy:</strong> Your answers are confidential</span>
+                        <span><strong id="privacy-label">Privacy:</strong> <span id="privacy-value">Your answers are confidential</span></span>
                     </li>
                     <li class="flex items-start">
                         <span class="text-2xl mr-3">💡</span>
-                        <span><strong>Results:</strong> You'll see personalized recommendations</span>
+                        <span><strong id="results-label">Results:</strong> <span id="results-value">You'll see personalized recommendations</span></span>
                     </li>
                 </ul>
             </div>
 
-            <!-- Key Areas -->
             <div class="mb-8">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">You'll assess 6 key areas:</h3>
+                <h3 id="areas-title" class="text-xl font-bold text-gray-900 mb-4">You'll assess 6 key areas:</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                     <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
                         <div class="text-3xl mb-2">💼</div>
-                        <div class="font-semibold text-sm">Career</div>
+                        <div id="area-career" class="font-semibold text-sm">Career</div>
                     </div>
                     <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
                         <div class="text-3xl mb-2">💰</div>
-                        <div class="font-semibold text-sm">Financial</div>
+                        <div id="area-financial" class="font-semibold text-sm">Financial</div>
                     </div>
                     <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
                         <div class="text-3xl mb-2">🏠</div>
-                        <div class="font-semibold text-sm">Home</div>
+                        <div id="area-home" class="font-semibold text-sm">Home</div>
                     </div>
                     <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
                         <div class="text-3xl mb-2">🏃</div>
-                        <div class="font-semibold text-sm">Health</div>
+                        <div id="area-health" class="font-semibold text-sm">Health</div>
                     </div>
                     <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
                         <div class="text-3xl mb-2">❤️</div>
-                        <div class="font-semibold text-sm">Spiritual</div>
+                        <div id="area-spiritual" class="font-semibold text-sm">Spiritual</div>
                     </div>
                     <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
                         <div class="text-3xl mb-2">📚</div>
-                        <div class="font-semibold text-sm">Education</div>
+                        <div id="area-education" class="font-semibold text-sm">Education</div>
                     </div>
                 </div>
             </div>
 
             <div class="text-center">
-                <button onclick="showParticipantForm()" class="px-12 py-4 rounded-xl font-bold text-lg text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-xl hover:shadow-2xl transform hover:scale-105">
+                <button onclick="showParticipantForm()" id="start-button" class="px-12 py-4 rounded-xl font-bold text-lg text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-xl hover:shadow-2xl transform hover:scale-105">
                     Start Assessment →
                 </button>
-                <p class="text-sm text-gray-500 mt-4">Sugdan nato! / Let's begin!</p>
+                <p id="start-subtext" class="text-sm text-gray-500 mt-4">Sugdan nato! / Let's begin!</p>
             </div>
         </div>
     </div>
@@ -256,14 +281,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Information</h2>
-                <p class="text-gray-600">This helps us provide better support and follow-up</p>
+                <h2 id="form-title" class="text-3xl font-bold text-gray-900 mb-2">Your Information</h2>
+                <p id="form-subtitle" class="text-gray-600">This helps us provide better support and follow-up</p>
             </div>
 
             <form id="participant-info-form" class="space-y-6">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Full Name <span class="text-red-500">*</span>
+                        <span id="fullname-label">Full Name</span> <span class="text-red-500">*</span>
                     </label>
                     <input 
                         type="text" 
@@ -275,7 +300,7 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Email Address
+                        <span id="email-label">Email Address</span>
                     </label>
                     <input 
                         type="email" 
@@ -286,7 +311,7 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Phone Number <span class="text-red-500">*</span>
+                        <span id="phone-label">Phone Number</span> <span class="text-red-500">*</span>
                     </label>
                     <input 
                         type="tel" 
@@ -298,13 +323,13 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Age Range <span class="text-red-500">*</span>
+                        <span id="age-label">Age Range</span> <span class="text-red-500">*</span>
                     </label>
                     <select 
                         id="ageRange" 
                         required
                         class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition">
-                        <option value="">Select age range</option>
+                        <option value="" id="age-placeholder">Select age range</option>
                         <option value="18-24">18-24</option>
                         <option value="25-34">25-34</option>
                         <option value="35-44">35-44</option>
@@ -316,12 +341,12 @@
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Ward Organization
+                        <span id="org-label">Ward Organization</span>
                     </label>
                     <select 
                         id="organization"
                         class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition">
-                        <option value="">Select organization</option>
+                        <option value="" id="org-placeholder">Select organization</option>
                         <option value="Elders Quorum">Elders Quorum</option>
                         <option value="Relief Society">Relief Society</option>
                         <option value="Young Men">Young Men</option>
@@ -332,7 +357,7 @@
                 </div>
 
                 <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-xl p-4">
-                    <p class="text-sm text-gray-700">
+                    <p id="privacy-note" class="text-sm text-gray-700">
                         🔒 <strong>Privacy:</strong> Your information will only be used by ward leaders and self-reliance specialists to provide personalized support and follow-up.
                     </p>
                 </div>
@@ -341,11 +366,13 @@
                     <button 
                         type="button"
                         onclick="backToWelcome()"
+                        id="back-button-form"
                         class="flex-1 px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-100 smooth-transition">
                         ← Back
                     </button>
                     <button 
                         type="submit"
+                        id="continue-button-form"
                         class="flex-1 px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
                         Continue to Survey →
                     </button>
@@ -358,8 +385,8 @@
     <div id="survey-screen" class="hidden w-full max-w-3xl">
         <div class="mb-8 fade-in-up">
             <div class="flex justify-between items-center mb-2">
-                <span class="text-sm font-medium text-white/90">Question <span id="current-q">1</span> of <span id="total-q">35</span></span>
-                <span class="text-sm font-medium text-white"><span id="progress-percent">0</span>% Complete</span>
+                <span class="text-sm font-medium text-white/90"><span id="question-label">Question</span> <span id="current-q">1</span> <span id="of-label">of</span> <span id="total-q">35</span></span>
+                <span class="text-sm font-medium text-white"><span id="progress-percent">0</span>% <span id="complete-label">Complete</span></span>
             </div>
             <div class="h-2 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
                 <div id="progress-bar" class="h-full bg-gradient-to-r from-[#fffffa] to-[#78cdd7] rounded-full progress-bar" style="width: 0%"></div>
@@ -392,16 +419,16 @@
 
             <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
                 <button id="back-btn" onclick="handleBack()" class="px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-100 smooth-transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                    ← Back
+                    ← <span id="back-label">Back</span>
                 </button>
                 <button id="next-btn" onclick="handleNext()" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105" disabled>
-                    Next →
+                    <span id="next-label">Next</span> →
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- REVIEW SCREEN -->
+    <!-- REVIEW, BRIDGE, RESULTS, THANK YOU SCREENS (unchanged structure but with translation IDs) -->
     <div id="review-screen" class="hidden w-full max-w-4xl">
         <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 fade-in-up">
             <div class="text-center mb-8">
@@ -410,24 +437,23 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Review Your Answers</h2>
-                <p class="text-gray-600">Section: <span id="review-section-name" class="font-semibold text-[#0d5c63]"></span></p>
+                <h2 id="review-title" class="text-3xl font-bold text-gray-900 mb-2">Review Your Answers</h2>
+                <p class="text-gray-600"><span id="section-text">Section:</span> <span id="review-section-name" class="font-semibold text-[#0d5c63]"></span></p>
             </div>
 
             <div id="review-content" class="max-h-96 overflow-y-auto space-y-3 mb-8 hide-scrollbar"></div>
 
             <div class="flex justify-center gap-4">
-                <button onclick="editAnswers()" class="px-6 py-3 rounded-xl font-semibold text-[#0d5c63] border-2 border-[#0d5c63] hover:bg-[#78cdd7]/20 smooth-transition">
+                <button onclick="editAnswers()" id="edit-button" class="px-6 py-3 rounded-xl font-semibold text-[#0d5c63] border-2 border-[#0d5c63] hover:bg-[#78cdd7]/20 smooth-transition">
                     Edit Answers
                 </button>
-                <button onclick="continueToNextSection()" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                <button onclick="continueToNextSection()" id="continue-section-button" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
                     Continue to Next Section →
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- BRIDGE SCREEN -->
     <div id="bridge-screen" class="hidden w-full max-w-3xl fade-in">
         <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 text-center">
             <div class="mb-8">
@@ -436,27 +462,27 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Salamat! Thank you!</h2>
-                <p class="text-xl text-gray-600 mb-8">We're analyzing your responses...</p>
+                <h2 id="bridge-title" class="text-3xl font-bold text-gray-900 mb-4">Salamat! Thank you!</h2>
+                <p id="bridge-subtitle" class="text-xl text-gray-600 mb-8">We're analyzing your responses...</p>
             </div>
 
             <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6">
                 <p class="text-gray-700 mb-4">
-                    <strong>Did you know?</strong> Members who participate in self-reliance programs report:
+                    <strong id="bridge-didyouknow">Did you know?</strong> <span id="bridge-text">Members who participate in self-reliance programs report:</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-4 text-left">
                     <div class="flex items-start">
                         <span class="text-2xl mr-3">📈</span>
                         <div>
                             <div class="font-bold text-[#0d5c63]">32%</div>
-                            <div class="text-sm">Improvement in providing for families</div>
+                            <div class="text-sm" id="bridge-stat1">Improvement in providing for families</div>
                         </div>
                     </div>
                     <div class="flex items-start">
                         <span class="text-2xl mr-3">💪</span>
                         <div>
                             <div class="font-bold text-[#0d5c63]">56%</div>
-                            <div class="text-sm">Improvement in problem-solving with the Lord</div>
+                            <div class="text-sm" id="bridge-stat2">Improvement in problem-solving with the Lord</div>
                         </div>
                     </div>
                 </div>
@@ -468,12 +494,11 @@
                     <div class="w-3 h-3 bg-[#44a1a0] rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
                     <div class="w-3 h-3 bg-[#44a1a0] rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
                 </div>
-                <p class="text-gray-500 mt-4">Your results will appear shortly...</p>
+                <p id="bridge-wait" class="text-gray-500 mt-4">Your results will appear shortly...</p>
             </div>
         </div>
     </div>
 
-    <!-- RESULTS SCREEN -->
     <div id="results-screen" class="hidden w-full max-w-5xl">
         <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 fade-in-up">
             <div class="text-center mb-8">
@@ -482,8 +507,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                 </div>
-                <h1 class="text-4xl font-bold text-gray-900 mb-3">Your Self-Reliance Assessment</h1>
-                <p class="text-gray-600 text-lg">Here's your personalized self-reliance wheel</p>
+                <h1 id="results-title" class="text-4xl font-bold text-gray-900 mb-3">Your Self-Reliance Assessment</h1>
+                <p id="results-subtitle" class="text-gray-600 text-lg">Here's your personalized self-reliance wheel</p>
             </div>
 
             <div class="mb-8">
@@ -493,14 +518,14 @@
             </div>
 
             <div class="mb-8">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Detailed Breakdown</h3>
+                <h3 id="breakdown-title" class="text-2xl font-bold text-gray-900 mb-4">Detailed Breakdown</h3>
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Category</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Score</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                                <th id="category-header" class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Category</th>
+                                <th id="score-header" class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Score</th>
+                                <th id="status-header" class="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
                             </tr>
                         </thead>
                         <tbody id="scores-table" class="divide-y divide-gray-100"></tbody>
@@ -509,7 +534,7 @@
             </div>
 
             <div class="bg-amber-50 border-l-4 border-amber-400 rounded-xl p-6 mb-8">
-                <h4 class="text-xl font-bold text-amber-900 mb-4 flex items-center">
+                <h4 id="recommendations-title" class="text-xl font-bold text-amber-900 mb-4 flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
@@ -519,17 +544,16 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="window.print()" class="px-6 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 smooth-transition">
+                <button onclick="window.print()" id="save-results-button" class="px-6 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 smooth-transition">
                     📄 Save Results
                 </button>
-                <button onclick="showThankYou()" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                <button onclick="showThankYou()" id="continue-final-button" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
                     Continue →
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- THANK YOU SCREEN -->
     <div id="thankyou-screen" class="hidden w-full max-w-4xl fade-in">
         <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12">
             <div class="text-center mb-8">
@@ -538,57 +562,57 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                <h1 id="thankyou-title" class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                     Salamat kaayo! Thank you!
                 </h1>
-                <p class="text-xl text-gray-600">
+                <p id="thankyou-subtitle" class="text-xl text-gray-600">
                     Your journey to self-reliance starts here
                 </p>
             </div>
 
             <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6 mb-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">🎯 What Happens Next?</h2>
+                <h2 id="whathappens-title" class="text-2xl font-bold text-gray-900 mb-4">🎯 What Happens Next?</h2>
                 <div class="space-y-4">
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#44a1a0] text-white flex items-center justify-center font-bold mr-4">1</div>
                         <div>
-                            <h3 class="font-semibold text-gray-900">Save Your Results</h3>
-                            <p class="text-gray-600 text-sm">Download or print your assessment for future reference</p>
+                            <h3 id="step1-title" class="font-semibold text-gray-900">Save Your Results</h3>
+                            <p id="step1-text" class="text-gray-600 text-sm">Download or print your assessment for future reference</p>
                         </div>
                     </div>
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#44a1a0] text-white flex items-center justify-center font-bold mr-4">2</div>
                         <div>
-                            <h3 class="font-semibold text-gray-900">Contact Your Ward Specialist</h3>
-                            <p class="text-gray-600 text-sm">Speak with your ward self-reliance specialist or bishop about programs</p>
+                            <h3 id="step2-title" class="font-semibold text-gray-900">Contact Your Ward Specialist</h3>
+                            <p id="step2-text" class="text-gray-600 text-sm">Speak with your ward self-reliance specialist or bishop about programs</p>
                         </div>
                     </div>
                     <div class="flex items-start">
                         <div class="flex-shrink-0 w-8 h-8 rounded-full bg-[#44a1a0] text-white flex items-center justify-center font-bold mr-4">3</div>
                         <div>
-                            <h3 class="font-semibold text-gray-900">Join Our Community</h3>
-                            <p class="text-gray-600 text-sm">Connect with other members on their self-reliance journey</p>
+                            <h3 id="step3-title" class="font-semibold text-gray-900">Join Our Community</h3>
+                            <p id="step3-text" class="text-gray-600 text-sm">Connect with other members on their self-reliance journey</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="text-center space-y-4">
-                <p class="text-lg text-gray-700 font-medium">
+                <p id="reminder-text" class="text-lg text-gray-700 font-medium">
                     Remember: Self-reliance doesn't mean doing everything alone—<br>
                     it means developing the ability to solve problems WITH the Lord's help.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                    <button onclick="window.print()" class="px-6 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 smooth-transition">
+                    <button onclick="window.print()" id="download-button" class="px-6 py-3 rounded-xl font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 smooth-transition">
                         📄 Download Results
                     </button>
-                    <button onclick="location.reload()" class="px-6 py-3 rounded-xl font-semibold text-[#0d5c63] border-2 border-[#0d5c63] hover:bg-[#78cdd7]/20 smooth-transition">
+                    <button onclick="location.reload()" id="retake-button" class="px-6 py-3 rounded-xl font-semibold text-[#0d5c63] border-2 border-[#0d5c63] hover:bg-[#78cdd7]/20 smooth-transition">
                         🔄 Retake Survey
                     </button>
                 </div>
                 
-                <p class="text-sm text-gray-500 mt-6">
+                <p id="final-message" class="text-sm text-gray-500 mt-6">
                     Pagbuhat! Let's do this together! 🙏
                 </p>
             </div>
@@ -598,89 +622,550 @@
 </div>
 
 <script>
-// ===== COMPLETE SURVEY CONFIGURATION =====
+// ===== MULTILINGUAL TRANSLATIONS =====
+let currentLanguage = 'en';
+
+const translations = {
+    en: {
+        welcomeTitle: "Carcar Ward<br>Self-Reliance Assessment",
+        welcomeGreeting: "Maayong adlaw! / Good day!",
+        whatToExpect: "📋 What to Expect",
+        timeLabel: "Time:",
+        timeValue: "About 10-15 minutes",
+        questionsLabel: "Questions:",
+        questionsValue: "35 questions about your self-reliance journey",
+        privacyLabel: "Privacy:",
+        privacyValue: "Your answers are confidential",
+        resultsLabel: "Results:",
+        resultsValue: "You'll see personalized recommendations",
+        areasTitle: "You'll assess 6 key areas:",
+        areaCareer: "Career",
+        areaFinancial: "Financial",
+        areaHome: "Home",
+        areaHealth: "Health",
+        areaSpiritual: "Spiritual",
+        areaEducation: "Education",
+        startButton: "Start Assessment →",
+        startSubtext: "Sugdan nato! / Let's begin!",
+        formTitle: "Your Information",
+        formSubtitle: "This helps us provide better support and follow-up",
+        fullnameLabel: "Full Name",
+        emailLabel: "Email Address",
+        phoneLabel: "Phone Number",
+        ageLabel: "Age Range",
+        agePlaceholder: "Select age range",
+        orgLabel: "Ward Organization",
+        orgPlaceholder: "Select organization",
+        privacyNote: "🔒 Privacy: Your information will only be used by ward leaders and self-reliance specialists to provide personalized support and follow-up.",
+        backButton: "← Back",
+        continueButton: "Continue to Survey →",
+        questionLabel: "Question",
+        ofLabel: "of",
+        completeLabel: "Complete",
+        ratingSubtitle: "Rate how consistently this applies to you",
+        rating1: "Not at all",
+        rating2: "Rarely",
+        rating3: "Sometimes",
+        rating4: "Often",
+        rating5: "Consistently",
+        nextLabel: "Next",
+        backLabel: "Back",
+        reviewTitle: "Review Your Answers",
+        sectionText: "Section:",
+        editButton: "Edit Answers",
+        continueSectionButton: "Continue to Next Section →",
+        bridgeTitle: "Salamat! Thank you!",
+        bridgeSubtitle: "We're analyzing your responses...",
+        bridgeDidyouknow: "Did you know?",
+        bridgeText: "Members who participate in self-reliance programs report:",
+        bridgeStat1: "Improvement in providing for families",
+        bridgeStat2: "Improvement in problem-solving with the Lord",
+        bridgeWait: "Your results will appear shortly...",
+        resultsTitle: "Your Self-Reliance Assessment",
+        resultsSubtitle: "Here's your personalized self-reliance wheel",
+        breakdownTitle: "Detailed Breakdown",
+        categoryHeader: "Category",
+        scoreHeader: "Score",
+        statusHeader: "Status",
+        statusExcellent: "Excellent",
+        statusGood: "Good",
+        statusNeedsWork: "Needs Work",
+        statusCritical: "Critical",
+        recommendationsTitle: "Recommended Programs for You",
+        saveResultsButton: "📄 Save Results",
+        continueFinalButton: "Continue →",
+        thankyouTitle: "Salamat kaayo! Thank you!",
+        thankyouSubtitle: "Your journey to self-reliance starts here",
+        whathappensTitle: "🎯 What Happens Next?",
+        step1Title: "Save Your Results",
+        step1Text: "Download or print your assessment for future reference",
+        step2Title: "Contact Your Ward Specialist",
+        step2Text: "Speak with your ward self-reliance specialist or bishop about programs",
+        step3Title: "Join Our Community",
+        step3Text: "Connect with other members on their self-reliance journey",
+        reminderText: "Remember: Self-reliance doesn't mean doing everything alone—<br>it means developing the ability to solve problems WITH the Lord's help.",
+        downloadButton: "📄 Download Results",
+        retakeButton: "🔄 Retake Survey",
+        finalMessage: "Pagbuhat! Let's do this together! 🙏"
+    },
+    ceb: {
+        welcomeTitle: "Carcar Ward<br>Pagsusi sa Pagkamasaligon",
+        welcomeGreeting: "Maayong adlaw!",
+        whatToExpect: "📋 Unsay Mahitabo",
+        timeLabel: "Oras:",
+        timeValue: "Mga 10-15 minutos",
+        questionsLabel: "Mga Pangutana:",
+        questionsValue: "35 ka pangutana bahin sa imong pagkamasaligon",
+        privacyLabel: "Pribasiya:",
+        privacyValue: "Ang imong mga tubag confidential",
+        resultsLabel: "Resulta:",
+        resultsValue: "Makakita ka ug personalized nga mga rekomendasyon",
+        areasTitle: "Susihon nimo ang 6 ka bahin:",
+        areaCareer: "Trabaho",
+        areaFinancial: "Panalapi",
+        areaHome: "Panimalay",
+        areaHealth: "Kahimsog",
+        areaSpiritual: "Espirituwal",
+        areaEducation: "Edukasyon",
+        startButton: "Sugdi ang Pagsusi →",
+        startSubtext: "Sugdan nato!",
+        formTitle: "Imong Impormasyon",
+        formSubtitle: "Makatabang ni para sa mas maayong suporta",
+        fullnameLabel: "Kompleto nga Ngalan",
+        emailLabel: "Email Address",
+        phoneLabel: "Numero sa Telepono",
+        ageLabel: "Edad",
+        agePlaceholder: "Pilia ang edad",
+        orgLabel: "Organisasyon sa Ward",
+        orgPlaceholder: "Pilia ang organisasyon",
+        privacyNote: "🔒 Pribasiya: Ang imong impormasyon gamiton lang sa mga lider ug specialists para sa suporta.",
+        backButton: "← Balik",
+        continueButton: "Padayon sa Survey →",
+        questionLabel: "Pangutana",
+        ofLabel: "sa",
+        completeLabel: "Kompleto",
+        ratingSubtitle: "Rate kon unsa ka kanunay ni applicable nimo",
+        rating1: "Dili gyud",
+        rating2: "Panagsa",
+        rating3: "Usahay",
+        rating4: "Kanunay",
+        rating5: "Permi",
+        nextLabel: "Sunod",
+        backLabel: "Balik",
+        reviewTitle: "Tan-awa ang Imong mga Tubag",
+        sectionText: "Seksyon:",
+        editButton: "Usba ang mga Tubag",
+        continueSectionButton: "Padayon sa Sunod nga Seksyon →",
+        bridgeTitle: "Salamat!",
+        bridgeSubtitle: "Gisusi namo ang imong mga tubag...",
+        bridgeDidyouknow: "Nahibal-an ba nimo?",
+        bridgeText: "Ang mga miyembro nga nag-apil sa programs nag-report og:",
+        bridgeStat1: "Pag-uswag sa pagpanghatag sa pamilya",
+        bridgeStat2: "Pag-uswag sa pagsulbad uban sa Ginoo",
+        bridgeWait: "Ang resulta mogawas sa dili madugay...",
+        resultsTitle: "Ang Imong Self-Reliance Assessment",
+        resultsSubtitle: "Ania ang imong personalized nga wheel",
+        breakdownTitle: "Detalyado nga Breakdown",
+        categoryHeader: "Kategorya",
+        scoreHeader: "Puntos",
+        statusHeader: "Status",
+        statusExcellent: "Maayo Kaayo",
+        statusGood: "Maayo",
+        statusNeedsWork: "Kinahanglan og Trabaho",
+        statusCritical: "Kritikal",
+        recommendationsTitle: "Mga Rekomendasyon para Nimo",
+        saveResultsButton: "📄 I-save ang Resulta",
+        continueFinalButton: "Padayon →",
+        thankyouTitle: "Salamat kaayo!",
+        thankyouSubtitle: "Ang imong panaw magsugod dinhi",
+        whathappensTitle: "🎯 Unsay Sunod?",
+        step1Title: "I-save ang Resulta",
+        step1Text: "I-download o i-print ang assessment",
+        step2Title: "Kontaka ang Ward Specialist",
+        step2Text: "Pakigsulti sa specialist o bishop",
+        step3Title: "Apil sa Komunidad",
+        step3Text: "Konekta sa ubang mga miyembro",
+        reminderText: "Hinumdomi: Ang self-reliance dili mag-inusara—<br>kini uban sa tabang sa Ginoo.",
+        downloadButton: "📄 I-download",
+        retakeButton: "🔄 Balika",
+        finalMessage: "Pagbuhat! Buhaton nato ni! 🙏"
+    },
+    tl: {
+        welcomeTitle: "Carcar Ward<br>Self-Reliance Assessment",
+        welcomeGreeting: "Magandang araw!",
+        whatToExpect: "📋 Ano ang Aasahan",
+        timeLabel: "Oras:",
+        timeValue: "Mga 10-15 minuto",
+        questionsLabel: "Mga Tanong:",
+        questionsValue: "35 na tanong tungkol sa self-reliance",
+        privacyLabel: "Privacy:",
+        privacyValue: "Ang mga sagot ay confidential",
+        resultsLabel: "Resulta:",
+        resultsValue: "Makikita mo ang personalized na rekomendasyon",
+        areasTitle: "Susuriin mo ang 6 na bahagi:",
+        areaCareer: "Karera",
+        areaFinancial: "Pananalapi",
+        areaHome: "Tahanan",
+        areaHealth: "Kalusugan",
+        areaSpiritual: "Espirituwal",
+        areaEducation: "Edukasyon",
+        startButton: "Simulan ang Assessment →",
+        startSubtext: "Tara na!",
+        formTitle: "Iyong Impormasyon",
+        formSubtitle: "Tumutulong ito para sa mas magandang suporta",
+        fullnameLabel: "Buong Pangalan",
+        emailLabel: "Email Address",
+        phoneLabel: "Numero ng Telepono",
+        ageLabel: "Edad",
+        agePlaceholder: "Piliin ang edad",
+        orgLabel: "Ward Organization",
+        orgPlaceholder: "Piliin ang organisasyon",
+        privacyNote: "🔒 Privacy: Ang impormasyon ay gagamitin lamang ng mga lider para sa suporta.",
+        backButton: "← Bumalik",
+        continueButton: "Magpatuloy sa Survey →",
+        questionLabel: "Tanong",
+        ofLabel: "ng",
+        completeLabel: "Kumpleto",
+        ratingSubtitle: "I-rate kung gaano ka madalas ito applicable",
+        rating1: "Hindi kailanman",
+        rating2: "Bihira",
+        rating3: "Minsan",
+        rating4: "Madalas",
+        rating5: "Palagi",
+        nextLabel: "Susunod",
+        backLabel: "Bumalik",
+        reviewTitle: "Suriin ang Iyong mga Sagot",
+        sectionText: "Seksyon:",
+        editButton: "I-edit ang mga Sagot",
+        continueSectionButton: "Magpatuloy sa Susunod na Seksyon →",
+        bridgeTitle: "Salamat!",
+        bridgeSubtitle: "Sinusuri namin ang mga sagot...",
+        bridgeDidyouknow: "Alam mo ba?",
+        bridgeText: "Ang mga miyembro na sumasali sa programs ay nag-uulat ng:",
+        bridgeStat1: "Pagpapabuti sa pagbibigay sa pamilya",
+        bridgeStat2: "Pagpapabuti sa paglutas kasama ang Panginoon",
+        bridgeWait: "Ang resulta ay lalabas mamaya...",
+        resultsTitle: "Ang Iyong Self-Reliance Assessment",
+        resultsSubtitle: "Narito ang iyong personalized na wheel",
+        breakdownTitle: "Detalyadong Breakdown",
+        categoryHeader: "Kategorya",
+        scoreHeader: "Puntos",
+        statusHeader: "Status",
+        statusExcellent: "Napakagaling",
+        statusGood: "Magaling",
+        statusNeedsWork: "Kailangan ng Trabaho",
+        statusCritical: "Kritikal",
+        recommendationsTitle: "Mga Inirerekomendang Programa",
+        saveResultsButton: "📄 I-save ang Resulta",
+        continueFinalButton: "Magpatuloy →",
+        thankyouTitle: "Maraming salamat!",
+        thankyouSubtitle: "Ang paglalakbay mo ay magsisimula dito",
+        whathappensTitle: "🎯 Ano ang Susunod?",
+        step1Title: "I-save ang Resulta",
+        step1Text: "I-download o i-print ang assessment",
+        step2Title: "Makipag-ugnayan sa Ward Specialist",
+        step2Text: "Makipag-usap sa specialist o bishop",
+        step3Title: "Sumali sa Komunidad",
+        step3Text: "Makipag-ugnayan sa ibang mga miyembro",
+        reminderText: "Tandaan: Ang self-reliance ay hindi mag-isa—<br>ito kasama ang tulong ng Panginoon.",
+        downloadButton: "📄 I-download",
+        retakeButton: "🔄 Ulitin",
+        finalMessage: "Gawa! Gawin natin ito! 🙏"
+    }
+};
+
+function t(key) {
+    return translations[currentLanguage][key] || translations['en'][key] || key;
+}
+
+function switchLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('preferredLanguage', lang);
+    
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`lang-${lang}`).classList.add('active');
+    
+    updateAllText();
+}
+
+function updateAllText() {
+    // Welcome screen
+    document.getElementById('welcome-title').innerHTML = t('welcomeTitle');
+    document.getElementById('welcome-greeting').textContent = t('welcomeGreeting');
+    document.getElementById('what-to-expect').textContent = t('whatToExpect');
+    document.getElementById('time-label').textContent = t('timeLabel');
+    document.getElementById('time-value').textContent = t('timeValue');
+    document.getElementById('questions-label').textContent = t('questionsLabel');
+    document.getElementById('questions-value').textContent = t('questionsValue');
+    document.getElementById('privacy-label').textContent = t('privacyLabel');
+    document.getElementById('privacy-value').textContent = t('privacyValue');
+    document.getElementById('results-label').textContent = t('resultsLabel');
+    document.getElementById('results-value').textContent = t('resultsValue');
+    document.getElementById('areas-title').textContent = t('areasTitle');
+    document.getElementById('area-career').textContent = t('areaCareer');
+    document.getElementById('area-financial').textContent = t('areaFinancial');
+    document.getElementById('area-home').textContent = t('areaHome');
+    document.getElementById('area-health').textContent = t('areaHealth');
+    document.getElementById('area-spiritual').textContent = t('areaSpiritual');
+    document.getElementById('area-education').textContent = t('areaEducation');
+    document.getElementById('start-button').textContent = t('startButton');
+    document.getElementById('start-subtext').textContent = t('startSubtext');
+    
+    // Participant form
+    document.getElementById('form-title').textContent = t('formTitle');
+    document.getElementById('form-subtitle').textContent = t('formSubtitle');
+    document.getElementById('fullname-label').textContent = t('fullnameLabel');
+    document.getElementById('email-label').textContent = t('emailLabel');
+    document.getElementById('phone-label').textContent = t('phoneLabel');
+    document.getElementById('age-label').textContent = t('ageLabel');
+    document.getElementById('age-placeholder').textContent = t('agePlaceholder');
+    document.getElementById('org-label').textContent = t('orgLabel');
+    document.getElementById('org-placeholder').textContent = t('orgPlaceholder');
+    document.getElementById('privacy-note').innerHTML = t('privacyNote');
+    document.getElementById('back-button-form').innerHTML = t('backButton');
+    document.getElementById('continue-button-form').textContent = t('continueButton');
+    
+    // Survey screen
+    document.getElementById('question-label').textContent = t('questionLabel');
+    document.getElementById('of-label').textContent = t('ofLabel');
+    document.getElementById('complete-label').textContent = t('completeLabel');
+    document.getElementById('back-label').textContent = t('backLabel');
+    document.getElementById('next-label').textContent = t('nextLabel');
+    
+    // Review screen
+    document.getElementById('review-title').textContent = t('reviewTitle');
+    document.getElementById('section-text').textContent = t('sectionText');
+    document.getElementById('edit-button').textContent = t('editButton');
+    document.getElementById('continue-section-button').textContent = t('continueSectionButton');
+    
+    // Bridge screen
+    document.getElementById('bridge-title').textContent = t('bridgeTitle');
+    document.getElementById('bridge-subtitle').textContent = t('bridgeSubtitle');
+    document.getElementById('bridge-didyouknow').textContent = t('bridgeDidyouknow');
+    document.getElementById('bridge-text').textContent = t('bridgeText');
+    document.getElementById('bridge-stat1').textContent = t('bridgeStat1');
+    document.getElementById('bridge-stat2').textContent = t('bridgeStat2');
+    document.getElementById('bridge-wait').textContent = t('bridgeWait');
+    
+    // Results screen
+    document.getElementById('results-title').textContent = t('resultsTitle');
+    document.getElementById('results-subtitle').textContent = t('resultsSubtitle');
+    document.getElementById('breakdown-title').textContent = t('breakdownTitle');
+    document.getElementById('category-header').textContent = t('categoryHeader');
+    document.getElementById('score-header').textContent = t('scoreHeader');
+    document.getElementById('status-header').textContent = t('statusHeader');
+    document.getElementById('recommendations-title').textContent = t('recommendationsTitle');
+    document.getElementById('save-results-button').textContent = t('saveResultsButton');
+    document.getElementById('continue-final-button').textContent = t('continueFinalButton');
+    
+    // Thank you screen
+    document.getElementById('thankyou-title').textContent = t('thankyouTitle');
+    document.getElementById('thankyou-subtitle').textContent = t('thankyouSubtitle');
+    document.getElementById('whathappens-title').textContent = t('whathappensTitle');
+    document.getElementById('step1-title').textContent = t('step1Title');
+    document.getElementById('step1-text').textContent = t('step1Text');
+    document.getElementById('step2-title').textContent = t('step2Title');
+    document.getElementById('step2-text').textContent = t('step2Text');
+    document.getElementById('step3-title').textContent = t('step3Title');
+    document.getElementById('step3-text').textContent = t('step3Text');
+    document.getElementById('reminder-text').innerHTML = t('reminderText');
+    document.getElementById('download-button').textContent = t('downloadButton');
+    document.getElementById('retake-button').textContent = t('retakeButton');
+    document.getElementById('final-message').textContent = t('finalMessage');
+}
+
+window.addEventListener('load', function() {
+    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+    switchLanguage(savedLang);
+});
+
+// ===== SURVEY CONFIGURATION =====
 const sections = [
     {
-        title: "Career Development",
+        title: { en: "Career Development", ceb: "Pag-uswag sa Karera", tl: "Pag-unlad ng Karera" },
         icon: "💼",
         type: "rating",
-        questions: [
-            "I have clear career goals and a plan to achieve them.",
-            "I am actively developing skills that improve my employability.",
-            "I feel confident in my ability to find or maintain meaningful work.",
-            "I regularly seek opportunities for professional growth.",
-            "I use my talents to contribute positively to my workplace."
-        ]
+        questions: {
+            en: [
+                "I have clear career goals and a plan to achieve them.",
+                "I am actively developing skills that improve my employability.",
+                "I feel confident in my ability to find or maintain meaningful work.",
+                "I regularly seek opportunities for professional growth.",
+                "I use my talents to contribute positively to my workplace."
+            ],
+            ceb: [
+                "Naa koy klaro nga mga tumong sa karera ug plano.",
+                "Aktibo kong gipalambo ang mga kahanas nga makapauswag sa akong trabaho.",
+                "Nasaligon ko sa akong abilidad sa pagpangita o pagmintinar sa makahuluganon nga trabaho.",
+                "Kanunay kong nangita og mga oportunidad para sa propesyonal nga pag-uswag.",
+                "Gigamit nako ang akong mga talento sa positibo nga kontribusyon sa akong trabaho."
+            ],
+            tl: [
+                "Mayroon akong malinaw na layunin sa karera at plano.",
+                "Aktibong pinauunlad ko ang mga kasanayan na nagpapabuti sa aking trabaho.",
+                "Nakakaramdam ako ng kumpiyansa sa aking kakayahan na makahanap o mapanatili ang makabuluhang trabaho.",
+                "Regular akong naghahanap ng mga pagkakataon para sa propesyonal na pag-unlad.",
+                "Ginagamit ko ang aking mga talento sa positibong kontribusyon sa aking trabaho."
+            ]
+        }
     },
     {
-        title: "Financial & Resource Management",
+        title: { en: "Financial & Resource Management", ceb: "Panalapi ug Pagdumala", tl: "Pananalapi at Pamamahala" },
         icon: "💰",
         type: "rating",
-        questions: [
-            "I create and follow a monthly budget.",
-            "I save money regularly for future needs or emergencies.",
-            "I manage debt responsibly and avoid unnecessary borrowing.",
-            "I understand how to prioritize financial needs over wants.",
-            "I feel confident in my ability to provide for myself financially."
-        ]
+        questions: {
+            en: [
+                "I create and follow a monthly budget.",
+                "I save money regularly for future needs or emergencies.",
+                "I manage debt responsibly and avoid unnecessary borrowing.",
+                "I understand how to prioritize financial needs over wants.",
+                "I feel confident in my ability to provide for myself financially."
+            ],
+            ceb: [
+                "Naghimo ug nagsunod ko sa binulan nga badyet.",
+                "Nagtipig ko ug kuwarta para sa umaabot nga panginahanglan o emerhensya.",
+                "Responsable ko sa pagdumala sa utang ug paglikay sa dili kinahanglan nga pangutang.",
+                "Nasabtan nako kung unsaon pag-prioritize ang panalapi nga panginahanglan sa gusto.",
+                "Nasaligon ko sa akong abilidad sa pagpanghatag sa akong kaugalingon pinansyal."
+            ],
+            tl: [
+                "Gumagawa at sumusunod ako sa buwanang badyet.",
+                "Regular akong nag-iipon ng pera para sa hinaharap o emergency.",
+                "Responsable akong namamahala ng utang at umiiwas sa hindi kailangang paghi ram.",
+                "Nauunawaan ko kung paano unahin ang pangangailangan sa pananalapi kaysa sa gusto.",
+                "Nakakaramdam ako ng kumpiyansa sa aking kakayahan na magbigay sa aking sarili pinansyal."
+            ]
+        }
     },
     {
-        title: "Home Production & Storage",
+        title: { en: "Home Production & Storage", ceb: "Produksyon ug Tipiganan", tl: "Produksyon at Imbakan" },
         icon: "🏠",
         type: "rating",
-        questions: [
-            "I prepare and store food/supplies for emergencies.",
-            "I know how to prepare nutritious meals using basic ingredients.",
-            "I maintain a clean, organized, and safe home environment.",
-            "I practice skills like gardening, sewing, or repairing items.",
-            "I plan ahead to ensure my household has what it needs."
-        ]
+        questions: {
+            en: [
+                "I prepare and store food/supplies for emergencies.",
+                "I know how to prepare nutritious meals using basic ingredients.",
+                "I maintain a clean, organized, and safe home environment.",
+                "I practice skills like gardening, sewing, or repairing items.",
+                "I plan ahead to ensure my household has what it needs."
+            ],
+            ceb: [
+                "Nag-andam ug nagtipig ko ug pagkaon/mga suplay para sa emerhensya.",
+                "Nahibal-an nako kung unsaon pagluto og nutritious nga pagkaon gamit ang basic nga sangkap.",
+                "Nagmintinar ko ug limpyo, organisado, ug luwas nga palibot sa balay.",
+                "Nagpraktis ko sa mga kahanas sama sa pagtanom, pagtahi, o pag-ayo sa mga butang.",
+                "Nagplano ko daan aron masiguro nga ang akong panimalay naa ang kinahanglan."
+            ],
+            tl: [
+                "Naghahanda at nag-iimbak ako ng pagkain/supplies para sa emergency.",
+                "Alam ko kung paano magluto ng nutritious na pagkain gamit ang basic na sangkap.",
+                "Pinapanatili ko ang malinis, organisado, at ligtas na kapaligiran sa bahay.",
+                "Nagsasanay ako ng mga kasanayan tulad ng pagtatanim, pagtatahi, o pag-aayos ng mga bagay.",
+                "Nangplaplano ako nang maaga upang masiguro na ang aking sambahayan ay may kailangan."
+            ]
+        }
     },
     {
-        title: "Physical Health",
+        title: { en: "Physical Health", ceb: "Pisikal nga Kahimsog", tl: "Pisikal na Kalusugan" },
         icon: "🏃",
         type: "rating",
-        questions: [
-            "I eat a balanced diet and stay hydrated.",
-            "I engage in regular physical activity.",
-            "I get adequate rest and manage stress effectively.",
-            "I avoid harmful substances and habits.",
-            "I seek medical care and preventive checkups when needed."
-        ]
+        questions: {
+            en: [
+                "I eat a balanced diet and stay hydrated.",
+                "I engage in regular physical activity.",
+                "I get adequate rest and manage stress effectively.",
+                "I avoid harmful substances and habits.",
+                "I seek medical care and preventive checkups when needed."
+            ],
+            ceb: [
+                "Mokaon ko ug balanced nga pagkaon ug magpabilin nga hydrated.",
+                "Moapil ko sa regular nga pisikal nga kalihokan.",
+                "Makakuha ko ug igo nga pahulay ug makadumala sa stress epektibo.",
+                "Naglikay ko sa makadaot nga mga substansya ug mga batasan.",
+                "Nangayo ko ug medikal nga pag-atiman ug preventive nga checkup kung gikinahanglan."
+            ],
+            tl: [
+                "Kumakain ako ng balanced na pagkain at nananatiling hydrated.",
+                "Sumasali ako sa regular na pisikal na aktibidad.",
+                "Nakakakuha ako ng sapat na pahinga at epektibong namamahala ng stress.",
+                "Umiiwas ako sa makasama na mga substansya at gawi.",
+                "Humihingi ako ng medikal na pangangalaga at preventive na checkup kung kailangan."
+            ]
+        }
     },
     {
-        title: "Social-Emotional & Spiritual",
+        title: { en: "Social-Emotional & Spiritual", ceb: "Social-Emosyonal ug Espirituwal", tl: "Social-Emosyonal at Espirituwal" },
         icon: "❤️",
         type: "rating",
-        questions: [
-            "I maintain positive relationships with family and friends.",
-            "I manage emotions in healthy and constructive ways.",
-            "I find peace/purpose through spiritual practices.",
-            "I serve others and contribute to my community.",
-            "I feel hopeful and resilient when facing challenges."
-        ]
+        questions: {
+            en: [
+                "I maintain positive relationships with family and friends.",
+                "I manage emotions in healthy and constructive ways.",
+                "I find peace/purpose through spiritual practices.",
+                "I serve others and contribute to my community.",
+                "I feel hopeful and resilient when facing challenges."
+            ],
+            ceb: [
+                "Nagmintinar ko ug positibo nga relasyon sa pamilya ug mga higala.",
+                "Nagdumala ko sa mga emosyon sa himsog ug konstruktibo nga paagi.",
+                "Nakakaplag ko ug kalinaw/katuyoan pinaagi sa espirituwal nga mga gawi.",
+                "Nag-alagad ko sa uban ug nag-ambit sa akong komunidad.",
+                "Gibati nako nga paglaom ug resilient sa pag-atubang sa mga hagit."
+            ],
+            tl: [
+                "Pinapanatili ko ang positibong ugnayan sa pamilya at mga kaibigan.",
+                "Pinamamahalaan ko ang mga emosyon sa malusog at konstruktibong paraan.",
+                "Nakakahanap ako ng kapayapaan/layunin sa pamamagitan ng espirituwal na gawi.",
+                "Nag para hindi-alagad ako sa iba at nag-aambag sa aking komunidad.",
+                "Nakakaramdam ako ng pag-asa at resilient sa harap ng mga hamon."
+            ]
+        }
     },
     {
-        title: "Literacy & Education",
+        title: { en: "Literacy & Education", ceb: "Literacy ug Edukasyon", tl: "Literacy at Edukasyon" },
         icon: "📚",
         type: "rating",
-        questions: [
-            "I can read, write, and communicate effectively.",
-            "I actively seek opportunities to learn new things.",
-            "I use technology resources to improve my knowledge.",
-            "I encourage learning and education within my family.",
-            "I set personal goals for continued education."
-        ]
+        questions: {
+            en: [
+                "I can read, write, and communicate effectively.",
+                "I actively seek opportunities to learn new things.",
+                "I use technology resources to improve my knowledge.",
+                "I encourage learning and education within my family.",
+                "I set personal goals for continued education."
+            ],
+            ceb: [
+                "Makabasa, makasulat, ug makakomunikar ko og epektibo.",
+                "Aktibo kong nangita og mga oportunidad sa pagkat-on og bag-ong mga butang.",
+                "Gigamit nako ang teknolohiya para mapaayo ang akong kahibalo.",
+                "Gidasig nako ang pagkat-on ug edukasyon sulod sa akong pamilya.",
+                "Nagtakda ko ug personal nga mga tumong para sa padayon nga edukasyon."
+            ],
+            tl: [
+                "Marunong akong magbasa, magsulat, at makipag-usap nang epektibo.",
+                "Aktibong naghahanap ako ng mga pagkakataon na matuto ng mga bagong bagay.",
+                "Ginagamit ko ang teknolohiya para mapabuti ang aking kaalaman.",
+                "Hinihikayat ko ang pag-aaral at edukasyon sa loob ng aking pamilya.",
+                "Nagtatatag ako ng personal na mga layunin para sa patuloy na edukasyon."
+            ]
+        }
     },
     {
-        title: "Program Awareness & Access",
+        title: { en: "Program Awareness & Access", ceb: "Kahibalo sa Programa", tl: "Kamalayan sa Programa" },
         icon: "🔍",
         type: "mixed",
         questions: [
             {
                 type: "checkbox",
-                text: "Which of these church self-reliance programs have you heard of?",
-                subtitle: "Check all that apply (programs marked with * are community-supported)",
+                text: {
+                    en: "Which of these church self-reliance programs have you heard of?",
+                    ceb: "Asa sa mga programa nga imong nabati-an?",
+                    tl: "Alin sa mga programang ito ang narinig mo na?"
+                },
+                subtitle: {
+                    en: "Check all that apply (programs marked with * are community-supported)",
+                    ceb: "I-check ang tanan nga applicable (* mga community programs)",
+                    tl: "I-check ang lahat na applicable (* community programs)"
+                },
                 options: [
                     "Starting & Growing My Business",
                     "Finding a Better Job That Will Lead to a Career",
@@ -699,54 +1184,78 @@ const sections = [
                     "English Connect",
                     "BYU Pathway",
                     "GEC (Global Education Center)",
-                    "I haven't heard of any of these programs"
+                    { en: "I haven't heard of any of these programs", ceb: "Wala ko kabati ani", tl: "Hindi ko pa narinig" }
                 ]
             },
             {
                 type: "checkbox",
-                text: "What prevents you from joining church programs?",
-                subtitle: "Check all that apply",
+                text: {
+                    en: "What prevents you from joining church programs?",
+                    ceb: "Unsa ang nagpugong nimo sa pag-apil?",
+                    tl: "Ano ang pumipigil sa iyo na sumali?"
+                },
+                subtitle: {
+                    en: "Check all that apply",
+                    ceb: "I-check ang tanan",
+                    tl: "I-check ang lahat"
+                },
                 options: [
-                    "I don't know these programs exist",
-                    "I don't think they're for people like me",
-                    "I don't have time",
-                    "Transportation is difficult",
-                    "I'm not sure how to sign up",
-                    "Language barriers (programs not in Cebuano)",
-                    "I'm embarrassed to ask for help",
-                    "I've tried but didn't find them helpful",
-                    "Nothing prevents me—I'm interested!"
+                    { en: "I don't know these programs exist", ceb: "Wala ko kahibalo nga naa ni", tl: "Hindi ko alam na mayroon" },
+                    { en: "I don't think they're for people like me", ceb: "Dili ko para kanako", tl: "Hindi para sa akin" },
+                    { en: "I don't have time", ceb: "Walay oras", tl: "Walang oras" },
+                    { en: "Transportation is difficult", ceb: "Lisod ang transportasyon", tl: "Mahirap ang transportasyon" },
+                    { en: "I'm not sure how to sign up", ceb: "Dili ko sure unsaon pag-sign up", tl: "Hindi ko alam paano mag-sign up" },
+                    { en: "Language barriers", ceb: "Lisod ang language", tl: "Language barrier" },
+                    { en: "I'm embarrassed to ask for help", ceb: "Naulaw ko mangayo ug tabang", tl: "Nahihiya akong humingi ng tulong" },
+                    { en: "I've tried but didn't find them helpful", ceb: "Nasulay na pero wala makatabang", tl: "Nasubukan na pero hindi nakatulong" },
+                    { en: "Nothing prevents me—I'm interested!", ceb: "Wala! Interesado ko!", tl: "Wala! Interesado ako!" }
                 ]
             },
             {
                 type: "radio",
-                text: "How do you prefer to learn about church programs?",
-                subtitle: "Select one option",
+                text: {
+                    en: "How do you prefer to learn about church programs?",
+                    ceb: "Unsaon nimo pagkat-on bahin sa mga programa?",
+                    tl: "Paano mo gustong malaman ang mga programa?"
+                },
+                subtitle: {
+                    en: "Select one option",
+                    ceb: "Pilia ang usa",
+                    tl: "Pumili ng isa"
+                },
                 options: [
-                    "Personal invitation from bishop/leader",
-                    "Announcement during sacrament meeting",
-                    "WhatsApp/Viber group messages",
-                    "Printed flyers or posters",
-                    "Ward website or bulletin",
-                    "From other ward members"
+                    { en: "Personal invitation from bishop/leader", ceb: "Personal nga imbitasyon gikan sa bishop", tl: "Personal na imbitasyon mula sa bishop" },
+                    { en: "Announcement during sacrament meeting", ceb: "Announcement sa sacrament meeting", tl: "Announcement sa sacrament meeting" },
+                    { en: "WhatsApp/Viber group messages", ceb: "WhatsApp/Viber group", tl: "WhatsApp/Viber group" },
+                    { en: "Printed flyers or posters", ceb: "Printed nga flyers", tl: "Printed na flyers" },
+                    { en: "Ward website or bulletin", ceb: "Ward website o bulletin", tl: "Ward website o bulletin" },
+                    { en: "From other ward members", ceb: "Gikan sa ubang miyembro", tl: "Mula sa ibang miyembro" }
                 ]
             },
             {
                 type: "radio",
-                text: "Have you ever attended a Self-Reliance group meeting?",
-                subtitle: "Select one option",
+                text: {
+                    en: "Have you ever attended a Self-Reliance group meeting?",
+                    ceb: "Naka-attend na ba ka sa Self-Reliance group?",
+                    tl: "Nag-attend ka na ba sa Self-Reliance group?"
+                },
+                subtitle: {
+                    en: "Select one option",
+                    ceb: "Pilia ang usa",
+                    tl: "Pumili ng isa"
+                },
                 options: [
-                    "Yes, and it was helpful",
-                    "Yes, but it wasn't what I expected",
-                    "No, but I'm interested",
-                    "No, I didn't know they existed"
+                    { en: "Yes, and it was helpful", ceb: "Oo, nakatabang", tl: "Oo, nakatulong" },
+                    { en: "Yes, but it wasn't what I expected", ceb: "Oo, pero dili sakto sa akong giexpect", tl: "Oo, pero hindi inaasahan" },
+                    { en: "No, but I'm interested", ceb: "Wala, pero interesado ko", tl: "Hindi, pero interesado ako" },
+                    { en: "No, I didn't know they existed", ceb: "Wala, wala ko kahibalo", tl: "Hindi, hindi ko alam" }
                 ]
             }
         ]
     }
 ];
 
-// ===== STATE MANAGEMENT =====
+// ===== REST OF THE JAVASCRIPT (State, Functions, etc) =====
 let participantData = {};
 let currentSectionIndex = 0;
 let currentQuestionIndex = 0;
@@ -754,19 +1263,17 @@ let responses = [];
 let totalQuestions = 35;
 let currentQuestionNumber = 1;
 
-// ===== INITIALIZATION =====
 function initializeResponses() {
     responses = [];
     sections.forEach(section => {
         if (section.type === 'rating') {
-            responses.push(new Array(section.questions.length).fill(null));
+            responses.push(new Array(5).fill(null));
         } else {
             responses.push(section.questions.map(() => null));
         }
     });
 }
 
-// ===== PARTICIPANT FORM =====
 function showParticipantForm() {
     document.getElementById('welcome-screen').classList.add('hidden');
     document.getElementById('participant-form').classList.remove('hidden');
@@ -787,13 +1294,13 @@ document.getElementById('participant-info-form').addEventListener('submit', func
         ageRange: document.getElementById('ageRange').value,
         organization: document.getElementById('organization').value,
         timestamp: new Date().toISOString(),
-        surveyId: 'SURVEY_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+        surveyId: 'SURVEY_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        language: currentLanguage
     };
     
     startSurvey();
 });
 
-// ===== START SURVEY =====
 function startSurvey() {
     document.getElementById('participant-form').classList.add('hidden');
     document.getElementById('survey-screen').classList.remove('hidden');
@@ -802,7 +1309,11 @@ function startSurvey() {
     updateProgress();
 }
 
-// ===== RENDER QUESTION =====
+function getTranslatedText(textObj) {
+    if (typeof textObj === 'string') return textObj;
+    return textObj[currentLanguage] || textObj['en'] || '';
+}
+
 function renderQuestion() {
     const section = sections[currentSectionIndex];
     const question = section.questions[currentQuestionIndex];
@@ -810,15 +1321,14 @@ function renderQuestion() {
     // Update section badge
     document.getElementById('section-badge').innerHTML = `
         <span class="text-xl mr-2">${section.icon}</span>
-        <span>${section.title}</span>
+        <span>${getTranslatedText(section.title)}</span>
     `;
     
-    // Update question number
     document.getElementById('q-number').textContent = currentQuestionNumber;
     
-    // Render based on question type
     if (section.type === 'rating') {
-        renderRatingQuestion(question);
+        const questions = section.questions[currentLanguage] || section.questions['en'];
+        renderRatingQuestion(questions[currentQuestionIndex]);
     } else {
         renderMixedQuestion(question);
     }
@@ -829,7 +1339,7 @@ function renderQuestion() {
 
 function renderRatingQuestion(question) {
     document.getElementById('question-text').textContent = question;
-    document.getElementById('question-subtitle').textContent = 'Rate how consistently this applies to you';
+    document.getElementById('question-subtitle').textContent = t('ratingSubtitle');
     
     const container = document.getElementById('answer-container');
     container.innerHTML = '';
@@ -837,7 +1347,7 @@ function renderRatingQuestion(question) {
     const ratingDiv = document.createElement('div');
     ratingDiv.className = 'grid grid-cols-5 gap-3';
     
-    const labels = ['Not at all', 'Rarely', 'Sometimes', 'Often', 'Consistently'];
+    const labels = [t('rating1'), t('rating2'), t('rating3'), t('rating4'), t('rating5')];
     
     for (let i = 1; i <= 5; i++) {
         const btn = document.createElement('button');
@@ -865,8 +1375,8 @@ function renderRatingQuestion(question) {
 }
 
 function renderMixedQuestion(question) {
-    document.getElementById('question-text').textContent = question.text;
-    document.getElementById('question-subtitle').textContent = question.subtitle;
+    document.getElementById('question-text').textContent = getTranslatedText(question.text);
+    document.getElementById('question-subtitle').textContent = getTranslatedText(question.subtitle);
     
     const container = document.getElementById('answer-container');
     container.innerHTML = '';
@@ -882,7 +1392,8 @@ function renderCheckboxOptions(options, container) {
     const currentAnswers = responses[currentSectionIndex][currentQuestionIndex] || [];
     
     options.forEach((option) => {
-        const isChecked = currentAnswers.includes(option);
+        const optionText = getTranslatedText(option);
+        const isChecked = currentAnswers.includes(optionText);
         const label = document.createElement('label');
         label.className = 'flex items-center p-4 rounded-xl border-2 cursor-pointer smooth-transition';
         
@@ -895,13 +1406,13 @@ function renderCheckboxOptions(options, container) {
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.className = 'custom-checkbox';
-        checkbox.value = option;
+        checkbox.value = optionText;
         checkbox.checked = isChecked;
         checkbox.onchange = handleCheckboxChange;
         
         const span = document.createElement('span');
         span.className = 'ml-3 text-gray-700 font-medium';
-        span.textContent = option;
+        span.textContent = optionText;
         
         label.appendChild(checkbox);
         label.appendChild(span);
@@ -921,7 +1432,8 @@ function renderRadioOptions(options, container) {
     const groupName = `radio-q${currentSectionIndex}-${currentQuestionIndex}`;
     
     options.forEach((option) => {
-        const isChecked = currentAnswer === option;
+        const optionText = getTranslatedText(option);
+        const isChecked = currentAnswer === optionText;
         const label = document.createElement('label');
         label.className = 'flex items-center p-4 rounded-xl border-2 cursor-pointer smooth-transition';
         
@@ -935,13 +1447,13 @@ function renderRadioOptions(options, container) {
         radio.type = 'radio';
         radio.name = groupName;
         radio.className = 'custom-radio';
-        radio.value = option;
+        radio.value = optionText;
         radio.checked = isChecked;
-        radio.onchange = () => handleRadioChange(option);
+        radio.onchange = () => handleRadioChange(optionText);
         
         const span = document.createElement('span');
         span.className = 'ml-3 text-gray-700 font-medium';
-        span.textContent = option;
+        span.textContent = optionText;
         
         label.appendChild(radio);
         label.appendChild(span);
@@ -953,7 +1465,6 @@ function handleRadioChange(value) {
     responses[currentSectionIndex][currentQuestionIndex] = value;
     updateButtons();
     
-    // Re-render to update styling
     setTimeout(() => {
         const section = sections[currentSectionIndex];
         const question = section.questions[currentQuestionIndex];
@@ -968,7 +1479,6 @@ function selectRating(value) {
     updateButtons();
     renderQuestion();
     
-    // Auto-advance after selection
     setTimeout(() => {
         if (responses[currentSectionIndex][currentQuestionIndex] !== null) {
             handleNext();
@@ -976,7 +1486,6 @@ function selectRating(value) {
     }, 500);
 }
 
-// ===== NAVIGATION =====
 function updateButtons() {
     const backBtn = document.getElementById('back-btn');
     const nextBtn = document.getElementById('next-btn');
@@ -1005,7 +1514,7 @@ function handleBack() {
     } else {
         currentSectionIndex--;
         const prevSection = sections[currentSectionIndex];
-        currentQuestionIndex = prevSection.questions.length - 1;
+        currentQuestionIndex = (prevSection.type === 'rating' ? 5 : prevSection.questions.length) - 1;
     }
     
     addTransition(() => {
@@ -1015,8 +1524,9 @@ function handleBack() {
 
 function handleNext() {
     const section = sections[currentSectionIndex];
+    const maxQuestions = section.type === 'rating' ? 5 : section.questions.length;
     
-    if (currentQuestionIndex === section.questions.length - 1) {
+    if (currentQuestionIndex === maxQuestions - 1) {
         showReview();
     } else {
         currentQuestionIndex++;
@@ -1039,18 +1549,27 @@ function addTransition(callback) {
     }, 200);
 }
 
-// ===== REVIEW SCREEN =====
 function showReview() {
     const section = sections[currentSectionIndex];
-    document.getElementById('review-section-name').textContent = section.title;
+    document.getElementById('review-section-name').textContent = getTranslatedText(section.title);
     
     const reviewContent = document.getElementById('review-content');
     reviewContent.innerHTML = '';
     
-    section.questions.forEach((q, index) => {
+    const maxQuestions = section.type === 'rating' ? 5 : section.questions.length;
+    
+    for (let index = 0; index < maxQuestions; index++) {
         const answer = responses[currentSectionIndex][index];
         const div = document.createElement('div');
         div.className = 'p-4 bg-gray-50 rounded-xl';
+        
+        let questionText = '';
+        if (section.type === 'rating') {
+            const questions = section.questions[currentLanguage] || section.questions['en'];
+            questionText = questions[index];
+        } else {
+            questionText = getTranslatedText(section.questions[index].text);
+        }
         
         let answerText = '';
         if (section.type === 'rating') {
@@ -1062,12 +1581,12 @@ function showReview() {
         }
         
         div.innerHTML = `
-            <p class="text-sm font-medium text-gray-700 mb-2">${typeof q === 'string' ? q : q.text}</p>
+            <p class="text-sm font-medium text-gray-700 mb-2">${questionText}</p>
             <div>${answerText}</div>
         `;
         
         reviewContent.appendChild(div);
-    });
+    }
     
     document.getElementById('survey-screen').classList.add('hidden');
     document.getElementById('review-screen').classList.remove('hidden');
@@ -1077,7 +1596,9 @@ function editAnswers() {
     document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('survey-screen').classList.remove('hidden');
     currentQuestionIndex = 0;
-    currentQuestionNumber -= sections[currentSectionIndex].questions.length - 1;
+    const section = sections[currentSectionIndex];
+    const maxQuestions = section.type === 'rating' ? 5 : section.questions.length;
+    currentQuestionNumber -= maxQuestions - 1;
     renderQuestion();
 }
 
@@ -1097,7 +1618,6 @@ function continueToNextSection() {
     }
 }
 
-// ===== BRIDGE SCREEN =====
 function showBridge() {
     document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('bridge-screen').classList.remove('hidden');
@@ -1107,7 +1627,6 @@ function showBridge() {
     }, 5000);
 }
 
-// ===== RESULTS SCREEN =====
 function showResults() {
     const averages = responses.slice(0, 6).map(answers => {
         const sum = answers.reduce((a, b) => a + b, 0);
@@ -1125,10 +1644,12 @@ function showResults() {
 function renderChart(averages) {
     const ctx = document.getElementById('results-chart').getContext('2d');
     
+    const labels = sections.slice(0, 6).map(s => getTranslatedText(s.title));
+    
     new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: sections.slice(0, 6).map(s => s.title),
+            labels: labels,
             datasets: [{
                 label: 'Your Score',
                 data: averages,
@@ -1145,6 +1666,14 @@ function renderChart(averages) {
         options: {
             responsive: true,
             maintainAspectRatio: true,
+            layout: {
+                padding: {
+                    top: 30,
+                    right: 30,
+                    bottom: 30,
+                    left: 30
+                }
+            },
             scales: {
                 r: {
                     beginAtZero: true,
@@ -1157,8 +1686,29 @@ function renderChart(averages) {
                     grid: { color: 'rgba(0, 0, 0, 0.05)' },
                     angleLines: { color: 'rgba(0, 0, 0, 0.05)' },
                     pointLabels: {
-                        font: { size: 14, weight: '600' },
-                        color: '#374151'
+                        font: { size: 13, weight: '600' },
+                        color: '#374151',
+                        padding: 15,
+                        callback: function(label) {
+                            const maxLength = 20;
+                            if (label.length > maxLength) {
+                                const words = label.split(' ');
+                                const lines = [];
+                                let currentLine = '';
+                                
+                                words.forEach(word => {
+                                    if ((currentLine + word).length > maxLength) {
+                                        lines.push(currentLine.trim());
+                                        currentLine = word + ' ';
+                                    } else {
+                                        currentLine += word + ' ';
+                                    }
+                                });
+                                lines.push(currentLine.trim());
+                                return lines;
+                            }
+                            return label;
+                        }
                     }
                 }
             },
@@ -1176,16 +1726,16 @@ function renderScoresTable(averages) {
     averages.forEach((score, i) => {
         let status, statusColor;
         if (score >= 4.5) {
-            status = 'Excellent';
+            status = t('statusExcellent');
             statusColor = 'text-green-600 bg-green-50';
         } else if (score >= 3.5) {
-            status = 'Good';
+            status = t('statusGood');
             statusColor = 'text-blue-600 bg-blue-50';
         } else if (score >= 2.5) {
-            status = 'Needs Work';
+            status = t('statusNeedsWork');
             statusColor = 'text-yellow-600 bg-yellow-50';
         } else {
-            status = 'Critical';
+            status = t('statusCritical');
             statusColor = 'text-red-600 bg-red-50';
         }
         
@@ -1195,7 +1745,7 @@ function renderScoresTable(averages) {
             <td class="px-6 py-4">
                 <div class="flex items-center">
                     <span class="text-2xl mr-3">${sections[i].icon}</span>
-                    <span class="font-semibold text-gray-900">${sections[i].title}</span>
+                    <span class="font-semibold text-gray-900">${getTranslatedText(sections[i].title)}</span>
                 </div>
             </td>
             <td class="px-6 py-4">
@@ -1217,55 +1767,54 @@ function generateRecommendations(scores) {
     const recommendations = [];
     
     if (scores[0] < 3.5) {
-        recommendations.push("💼 <strong>Finding a Better Job That Will Lead to a Career</strong> – Career development and job search skills");
-        recommendations.push("🚀 <strong>Starting & Growing My Business</strong> – Entrepreneurship and business fundamentals");
-        recommendations.push("💻 <strong>Freelance Training</strong> – Learn skills for freelance work");
+        recommendations.push("💼 <strong>Finding a Better Job That Will Lead to a Career</strong>");
+        recommendations.push("🚀 <strong>Starting & Growing My Business</strong>");
+        recommendations.push("💻 <strong>Freelance Training</strong>");
     }
     
     if (scores[1] < 3.5) {
-        recommendations.push("💰 <strong>Personal Finance Training</strong> – Budgeting, saving, and money management");
-        recommendations.push("📊 <strong>Success & Money Foundation</strong> – Financial literacy and wealth building");
+        recommendations.push("💰 <strong>Personal Finance Training</strong>");
+        recommendations.push("📊 <strong>Success & Money Foundation</strong>");
     }
     
     if (scores[2] < 3.5) {
-        recommendations.push("🏠 <strong>Humanitarian Member Welfare Project</strong> – Community support and resource sharing");
-        recommendations.push("🥫 <strong>Food Preservation</strong> – Learn to store and preserve food");
+        recommendations.push("🏠 <strong>Humanitarian Member Welfare Project</strong>");
+        recommendations.push("🥫 <strong>Food Preservation</strong>");
     }
     
     if (scores[3] < 3.5) {
-        recommendations.push("👶 <strong>Child Nutrition Program</strong> – Healthy eating for families");
+        recommendations.push("👶 <strong>Child Nutrition Program</strong>");
     }
     
     if (scores[4] < 3.5) {
-        recommendations.push("❤️ <strong>Family Services</strong> – Counseling and emotional support");
-        recommendations.push("📖 <strong>Institute & Seminary</strong> – Spiritual education and growth");
-        recommendations.push("🎯 <strong>My Plan</strong> – Personal goal setting and planning");
+        recommendations.push("❤️ <strong>Family Services</strong>");
+        recommendations.push("📖 <strong>Institute & Seminary</strong>");
+        recommendations.push("🎯 <strong>My Plan</strong>");
     }
     
     if (scores[5] < 3.5) {
-        recommendations.push("🎓 <strong>PEF (Perpetual Education Fund)</strong> – Education loans and support");
-        recommendations.push("🌾 <strong>Bensons Scholarship (Agriculture)</strong> – Scholarships for agricultural studies");
-        recommendations.push("🗣️ <strong>English Connect</strong> – English language learning");
-        recommendations.push("🏫 <strong>BYU Pathway</strong> – Online certificates and degrees");
-        recommendations.push("🌍 <strong>GEC (Global Education Center)</strong> – Educational resources");
+        recommendations.push("🎓 <strong>PEF (Perpetual Education Fund)</strong>");
+        recommendations.push("🌾 <strong>Bensons Scholarship (Agriculture)</strong>");
+        recommendations.push("🗣️ <strong>English Connect</strong>");
+        recommendations.push("🏫 <strong>BYU Pathway</strong>");
+        recommendations.push("🌍 <strong>GEC (Global Education Center)</strong>");
     }
     
     if (recommendations.length === 0) {
-        list.innerHTML = '<p class="font-medium">🎉 Great job! Your scores show strong self-reliance. Consider mentoring others!</p>';
+        list.innerHTML = '<p class="font-medium">🎉 ' + (currentLanguage === 'ceb' ? 'Maayo kaayo! Makapatabang ka sa uban!' : currentLanguage === 'tl' ? 'Napakagaling! Maaari kang tumulong sa iba!' : 'Great job! Consider mentoring others!') + '</p>';
     } else {
         list.innerHTML = recommendations.map(r => `<p class="flex items-start"><span class="mr-2">•</span><span>${r}</span></p>`).join('');
-        list.innerHTML += '<p class="mt-4 pt-4 border-t border-amber-200 font-semibold">📞 Next Step: Contact your ward self-reliance specialist or bishop to learn more!</p>';
+        const nextStepText = currentLanguage === 'ceb' ? '📞 Sunod: Kontaka ang ward specialist o bishop!' : currentLanguage === 'tl' ? '📞 Susunod: Makipag-ugnayan sa ward specialist o bishop!' : '📞 Next Step: Contact your ward self-reliance specialist or bishop!';
+        list.innerHTML += `<p class="mt-4 pt-4 border-t border-amber-200 font-semibold">${nextStepText}</p>`;
     }
 }
 
-// ===== THANK YOU SCREEN =====
 function showThankYou() {
     submitSurveyData();
     document.getElementById('results-screen').classList.add('hidden');
     document.getElementById('thankyou-screen').classList.remove('hidden');
 }
 
-// ===== SUBMIT DATA TO GOOGLE SHEETS =====
 async function submitSurveyData() {
     const surveyData = {
         ...participantData,
