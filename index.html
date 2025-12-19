@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carcar Ward Self-Reliance Assessment</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --porcelain: #fffffa;
+        --stormy-teal: #0d5c63;
+        --tropical-teal: #44a1a0;
+        --pearl-aqua: #78cdd7;
+        --teal: #247b7b;
+    }
+    
+    body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        overflow-x: hidden;
+    }
+    
+    .gradient-bg {
+        background: linear-gradient(135deg, var(--pearl-aqua) 0%, var(--tropical-teal) 50%, var(--stormy-teal) 100%);
+    }
+    
+    .smooth-transition {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .rating-btn {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .rating-btn:hover {
+        transform: translateY(-4px);
+    }
+    
+    .rating-btn.selected {
+        transform: scale(1.1);
+        box-shadow: 0 10px 30px rgba(13, 92, 99, 0.4);
+    }
+    
+    .custom-checkbox {
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--tropical-teal);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        flex-shrink: 0;
+    }
+    
+    .custom-checkbox:checked {
+        background: var(--tropical-teal);
+        border-color: var(--tropical-teal);
+    }
+    
+    .custom-checkbox:checked::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    
+    .custom-radio {
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--tropical-teal);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+    
+    .custom-radio:checked {
+        background: var(--tropical-teal);
+        border-color: var(--tropical-teal);
+        box-shadow: inset 0 0 0 4px white;
+    }
+    
+    @keyframes progress-fill {
+        from { width: 0; }
+    }
+    
+    .progress-bar {
+        animation: progress-fill 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+    
+    @keyframes bounce-in {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+    
+    .bounce-in {
+        animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    .pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+    }
+    
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+    }
+</style>
+</head>
+<body class="bg-gradient-to-br from-[#78cdd7] via-[#44a1a0] to-[#0d5c63] min-h-screen">
+
+<div id="app" class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- WELCOME SCREEN -->
+    <div id="welcome-screen" class="w-full max-w-4xl fade-in">
+        <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-6 bounce-in">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Carcar Ward<br>Self-Reliance Assessment
+                </h1>
+                <p class="text-xl text-gray-600 mb-6">
+                    Maayong adlaw! / Good day!
+                </p>
+            </div>
+
+            <!-- Welcome Video -->
+            <div class="mb-8">
+                <div class="video-container bg-gray-100 rounded-xl">
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                        title="Welcome Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-2xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 What to Expect</h2>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">⏱️</span>
+                        <span><strong>Time:</strong> About 10-15 minutes</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">🎯</span>
+                        <span><strong>Questions:</strong> 35 questions about your self-reliance journey</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">🔒</span>
+                        <span><strong>Privacy:</strong> Your answers are confidential</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">💡</span>
+                        <span><strong>Results:</strong> You'll see personalized recommendations</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Key Areas -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">You'll assess 6 key areas:</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
+                        <div class="text-3xl mb-2">💼</div>
+                        <div class="font-semibold text-sm">Career</div>
+                    </div>
+                    <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
+                        <div class="text-3xl mb-2">💰</div>
+                        <div class="font-semibold text-sm">Financial</div>
+                    </div>
+                    <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
+                        <div class="text-3xl mb-2">🏠</div>
+                        <div class="font-semibold text-sm">Home</div>
+                    </div>
+                    <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
+                        <div class="text-3xl mb-2">🏃</div>
+                        <div class="font-semibold text-sm">Health</div>
+                    </div>
+                    <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
+                        <div class="text-3xl mb-2">❤️</div>
+                        <div class="font-semibold text-sm">Spiritual</div>
+                    </div>
+                    <div class="bg-white border-2 border-[#44a1a0] rounded-xl p-4 text-center">
+                        <div class="text-3xl mb-2">📚</div>
+                        <div class="font-semibold text-sm">Education</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="showParticipantForm()" class="px-12 py-4 rounded-xl font-bold text-lg text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-xl hover:shadow-2xl transform hover:scale-105">
+                    Start Assessment →
+                </button>
+                <p class="text-sm text-gray-500 mt-4">Sugdan nato! / Let's begin!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTICIPANT INFO FORM -->
+    <div id="participant-form" class="hidden w-full max-w-2xl fade-in">
+        <div class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] mb-4 bounce-in">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Information</h2>
+                <p class="text-gray-600">This helps us provide better support and follow-up</p>
+            </div>
+
+            <form id="participant-info-form" class="space-y-6">
+                <!-- Full Name -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Full Name <span class="text-red-500">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        required
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition"
+                        placeholder="Juan Dela Cruz">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Email Address
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition"
+                        placeholder="juan@example.com">
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Phone Number <span class="text-red-500">*</span>
+                    </label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        required
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition"
+                        placeholder="09XX XXX XXXX">
+                </div>
+
+                <!-- Age Range -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Age Range <span class="text-red-500">*</span>
+                    </label>
+                    <select 
+                        id="ageRange" 
+                        required
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition">
+                        <option value="">Select age range</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-34">25-34</option>
+                        <option value="35-44">35-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55-64">55-64</option>
+                        <option value="65+">65+</option>
+                    </select>
+                </div>
+
+                <!-- Ward Organization -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Ward Organization
+                    </label>
+                    <select 
+                        id="organization"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#44a1a0] focus:ring-4 focus:ring-[#78cdd7]/20 outline-none smooth-transition">
+                        <option value="">Select organization</option>
+                        <option value="Elders Quorum">Elders Quorum</option>
+                        <option value="Relief Society">Relief Society</option>
+                        <option value="Young Men">Young Men</option>
+                        <option value="Young Women">Young Women</option>
+                        <option value="Primary">Primary</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Privacy Notice -->
+                <div class="bg-gradient-to-br from-[#78cdd7]/20 to-[#44a1a0]/20 rounded-xl p-4">
+                    <p class="text-sm text-gray-700">
+                        🔒 <strong>Privacy:</strong> Your information will only be used by ward leaders and self-reliance specialists to provide personalized support and follow-up.
+                    </p>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex gap-4">
+                    <button 
+                        type="button"
+                        onclick="backToWelcome()"
+                        class="flex-1 px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-100 smooth-transition">
+                        ← Back
+                    </button>
+                    <button 
+                        type="submit"
+                        class="flex-1 px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                        Continue to Survey →
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- REST OF THE SURVEY (SAME AS BEFORE) -->
+    <!-- Survey Screen -->
+    <div id="survey-screen" class="hidden w-full max-w-3xl">
+        <div class="mb-8 fade-in-up">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-medium text-white/90">Question <span id="current-q">1</span> of <span id="total-q">35</span></span>
+                <span class="text-sm font-medium text-white"><span id="progress-percent">0</span>% Complete</span>
+            </div>
+            <div class="h-2 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-[#fffffa] to-[#78cdd7] rounded-full progress-bar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div id="question-container" class="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 min-h-[400px] flex flex-col justify-between fade-in-up">
+            <div>
+                <div id="section-badge" class="inline-flex items-center px-4 py-2 rounded-full bg-[#78cdd7]/30 text-[#0d5c63] text-sm font-semibold mb-6 bounce-in">
+                    <span class="text-xl mr-2">💼</span>
+                    <span id="section-name">Career Development</span>
+                </div>
+
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#44a1a0] to-[#0d5c63] text-white font-bold text-lg bounce-in">
+                            <span id="q-number">1</span>
+                        </div>
+                        <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-900">
+                            Question text here
+                        </h2>
+                    </div>
+                    <p id="question-subtitle" class="text-gray-500 text-sm ml-13">
+                        Subtitle here
+                    </p>
+                </div>
+
+                <div id="answer-container" class="space-y-4"></div>
+            </div>
+
+            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                <button id="back-btn" class="px-6 py-3 rounded-xl font-semibold text-gray-600 hover:bg-gray-100 smooth-transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    ← Back
+                </button>
+                <button id="next-btn" class="px-8 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] smooth-transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105" disabled>
+                    Next →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review, Bridge, Results, Thank You screens remain the same as previous version -->
+    <!-- I'll include placeholders for brevity -->
+    <div id="review-screen" class="hidden"></div>
+    <div id="bridge-screen" class="hidden"></div>
+    <div id="results-screen" class="hidden"></div>
+    <div id="thankyou-screen" class="hidden"></div>
+
+</div>
+
+<script>
+// Configuration (same as before)
+const sections = [
+    {
+        title: "Career Development",
+        icon: "💼",
+        type: "rating",
+        questions: [
+            "I have clear career goals and a plan to achieve them.",
+            "I am actively developing skills that improve my employability.",
+            "I feel confident in my ability to find or maintain meaningful work.",
+            "I regularly seek opportunities for professional growth.",
+            "I use my talents to contribute positively to my workplace."
+        ]
+    },
+    // ... rest of sections
+];
+
+// Store participant info
+let participantData = {};
+
+// Show participant form
+function showParticipantForm() {
+    document.getElementById('welcome-screen').classList.add('hidden');
+    document.getElementById('participant-form').classList.remove('hidden');
+}
+
+// Back to welcome
+function backToWelcome() {
+    document.getElementById('participant-form').classList.add('hidden');
+    document.getElementById('welcome-screen').classList.remove('hidden');
+}
+
+// Handle form submission
+document.getElementById('participant-info-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Collect participant data
+    participantData = {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        ageRange: document.getElementById('ageRange').value,
+        organization: document.getElementById('organization').value,
+        timestamp: new Date().toISOString(),
+        surveyId: generateSurveyId()
+    };
+    
+    // Start survey
+    startSurvey();
+});
+
+// Generate unique survey ID
+function generateSurveyId() {
+    return 'SURVEY_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// State management
+let currentSectionIndex = 0;
+let currentQuestionIndex = 0;
+let responses = [];
+let totalQuestions = 35;
+let currentQuestionNumber = 1;
+
+// Initialize responses
+function initializeResponses() {
+    sections.forEach(section => {
+        if (section.type === 'rating') {
+            responses.push(new Array(section.questions.length).fill(null));
+        } else {
+            responses.push(section.questions.map(() => null));
+        }
+    });
+}
+
+// Start survey
+function startSurvey() {
+    document.getElementById('participant-form').classList.add('hidden');
+    document.getElementById('survey-screen').classList.remove('hidden');
+    initializeResponses();
+    renderQuestion();
+    updateProgress();
+}
+
+// When survey is complete, send data to Google Sheets
+async function submitSurveyData() {
+    const surveyData = {
+        ...participantData,
+        responses: responses,
+        completedAt: new Date().toISOString()
+    };
+    
+    try {
+        // Google Apps Script Web App URL (you'll create this)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwSlUeDjba0PpYyFZ2e3C3bgMB692TeTFDjXvr_V7f84FrxvtASQiJ0HILwaFegycyrpw/exec';
+        
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(surveyData)
+        });
+        
+        console.log('Survey data submitted successfully');
+    } catch (error) {
+        console.error('Error submitting survey:', error);
+        // Store in localStorage as backup
+        localStorage.setItem('survey_' + participantData.surveyId, JSON.stringify(surveyData));
+    }
+}
+
+// Rest of your survey functions (renderQuestion, handleNext, etc.) remain the same
+// Call submitSurveyData() when showing thank you screen
+
+function renderQuestion() {
+    // Same as before
+}
+
+function handleNext() {
+    // Same as before
+}
+
+// Add this call when survey is complete
+function showThankYou() {
+    submitSurveyData(); // Submit data when showing thank you
+    document.getElementById('results-screen').classList.add('hidden');
+    document.getElementById('thankyou-screen').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
