@@ -146,17 +146,21 @@
             opacity: 1;
             transform: translateX(0) translateY(0) rotate(0deg) scale(1);
         }
-        30% {
-            opacity: 0.8;
-            transform: translateX(-20px) translateY(-15px) rotate(-3deg) scale(0.99);
+        20% {
+            opacity: 0.9;
+            transform: translateX(-15px) translateY(-10px) rotate(-45deg) scale(0.98);
         }
-        60% {
-            opacity: 0.4;
-            transform: translateX(-80px) translateY(-40px) rotate(-15deg) scale(0.8);
+        50% {
+            opacity: 0.6;
+            transform: translateX(-70px) translateY(-35px) rotate(-180deg) scale(0.75);
+        }
+        75% {
+            opacity: 0.3;
+            transform: translateX(-120px) translateY(-60px) rotate(-270deg) scale(0.5);
         }
         100% {
             opacity: 0;
-            transform: translateX(-150px) translateY(-80px) rotate(-25deg) scale(0.6);
+            transform: translateX(-160px) translateY(-85px) rotate(-360deg) scale(0.3);
         }
     }
     
@@ -166,26 +170,30 @@
             opacity: 1;
             transform: translateX(0) translateY(0) rotate(0deg) scale(1);
         }
-        30% {
-            opacity: 0.8;
-            transform: translateX(20px) translateY(-15px) rotate(3deg) scale(0.99);
+        20% {
+            opacity: 0.9;
+            transform: translateX(15px) translateY(-10px) rotate(45deg) scale(0.98);
         }
-        60% {
-            opacity: 0.4;
-            transform: translateX(80px) translateY(-40px) rotate(15deg) scale(0.8);
+        50% {
+            opacity: 0.6;
+            transform: translateX(70px) translateY(-35px) rotate(180deg) scale(0.75);
+        }
+        75% {
+            opacity: 0.3;
+            transform: translateX(120px) translateY(-60px) rotate(270deg) scale(0.5);
         }
         100% {
             opacity: 0;
-            transform: translateX(150px) translateY(-80px) rotate(25deg) scale(0.6);
+            transform: translateX(160px) translateY(-85px) rotate(360deg) scale(0.3);
         }
     }
     
     .card-throw {
-        animation: cardThrow 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.34) forwards;
+        animation: cardThrow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     }
     
     .card-throw-back {
-        animation: cardThrowBack 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.34) forwards;
+        animation: cardThrowBack 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     }
     
     #question-container {
@@ -1892,14 +1900,14 @@ function addTransition(callback, direction = 'forward') {
         container.classList.add('card-throw-back');
     }
     
-    // Wait for throw animation to complete (500ms)
+    // Wait for throw animation to complete (600ms)
     setTimeout(() => {
         // Remove throw classes
         container.classList.remove('card-throw', 'card-throw-back');
         
         // Update content (new card appears naturally - no extra animation!)
         callback();
-    }, 500);
+    }, 600);
 }
 
 function showReview() {
