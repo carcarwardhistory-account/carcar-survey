@@ -140,18 +140,6 @@
         animation: slideFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    /* Card entrance - smooth slide up */
-    @keyframes cardEnter {
-        from {
-            opacity: 0;
-            transform: translateY(40px) scale(0.97);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-    
     /* Card exit - thrown/spinning out LEFT */
     @keyframes cardThrow {
         0% {
@@ -192,10 +180,6 @@
         }
     }
     
-    .card-enter {
-        animation: cardEnter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    
     .card-throw {
         animation: cardThrow 0.5s cubic-bezier(0.6, 0.04, 0.98, 0.34) forwards;
     }
@@ -209,6 +193,7 @@
         perspective: 1000px;
         position: relative;
         will-change: transform, opacity;
+        transition: opacity 0.3s ease-in-out;
     }
     
     /* Mobile optimizations */
@@ -1909,24 +1894,11 @@ function addTransition(callback, direction = 'forward') {
     
     // Wait for throw animation to complete (500ms)
     setTimeout(() => {
-        // Update content
-        callback();
-        
         // Remove throw classes
         container.classList.remove('card-throw', 'card-throw-back');
         
-        // Use requestAnimationFrame for smooth transition
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                // Add entrance animation
-                container.classList.add('card-enter');
-                
-                // Remove entrance class after animation completes (500ms)
-                setTimeout(() => {
-                    container.classList.remove('card-enter');
-                }, 500);
-            });
-        });
+        // Update content (new card appears naturally - no extra animation!)
+        callback();
     }, 500);
 }
 
