@@ -199,8 +199,19 @@
             <!-- Participants Tab -->
             <div id="participants-tab" class="tab-content p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-900">Recent Participants</h2>
-                    <div class="flex gap-2">
+                    <h2 class="text-xl font-bold text-gray-900">Participants</h2>
+                    <div class="flex gap-2 flex-wrap">
+                        <select 
+                            id="filter-time"
+                            class="px-4 py-2 rounded-lg border border-gray-200 focus:border-[#44a1a0] focus:ring-2 focus:ring-[#78cdd7]/20 outline-none"
+                            onchange="filterParticipants()">
+                            <option value="all">All Time</option>
+                            <option value="today">Today</option>
+                            <option value="7">Last 7 Days</option>
+                            <option value="14">Last 14 Days</option>
+                            <option value="30">Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                        </select>
                         <input 
                             type="text" 
                             id="search-input"
@@ -219,6 +230,11 @@
                             <option value="Primary">Primary</option>
                             <option value="Other">Other</option>
                         </select>
+                        <button 
+                            onclick="refreshData()"
+                            class="px-4 py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-[#44a1a0] to-[#0d5c63] hover:from-[#247b7b] hover:to-[#0d5c63] transition">
+                            🔄 Refresh
+                        </button>
                     </div>
                 </div>
 
@@ -374,9 +390,13 @@ async function loadDashboardData() {
         allParticipants = data.participants || [];
         filteredParticipants = [...allParticipants];
         
+        // Set filter to all-time by default
+        document.getElementById('filter-time').value = 'all';
+        
         updateStats();
         renderParticipantsTable();
         renderCharts();
+        updateFilteredStats();
     } catch (error) {
         console.error('Error loading data:', error);
         // Load sample data for demo
@@ -478,14 +498,50 @@ function renderParticipantsTable() {
 function filterParticipants() {
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
     const orgFilter = document.getElementById('filter-org').value;
+    const timeFilter = document.getElementById('filter-time').value;
     
     filteredParticipants = allParticipants.filter(p => {
         const matchesSearch = p.fullName.toLowerCase().includes(searchTerm);
         const matchesOrg = !orgFilter || p.organization === orgFilter;
-        return matchesSearch && matchesOrg;
+        
+        // Time filtering
+        let matchesTime = true;
+        if (timeFilter !== 'all') {
+            const participantDate = new Date(p.timestamp);
+            const now = new Date();
+            
+            if (timeFilter === 'today') {
+                matchesTime = participantDate.toDateString() === now.toDateString();
+            } else {
+                const daysAgo = parseInt(timeFilter);
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - daysAgo);
+                matchesTime = participantDate >= cutoffDate;
+            }
+        }
+        
+        return matchesSearch && matchesOrg && matchesTime;
     });
     
     renderParticipantsTable();
+    updateFilteredStats();
+}
+
+// Update stats based on filtered participants
+function updateFilteredStats() {
+    const total = filteredParticipants.length;
+    const avgScore = filteredParticipants.length > 0
+        ? (filteredParticipants.reduce((sum, p) => sum + parseFloat(p.avgScore || 0), 0) / filteredParticipants.length).toFixed(1)
+        : '0.0';
+    
+    // Update display with filtered count
+    const timeFilter = document.getElementById('filter-time').value;
+    let label = 'Filtered';
+    if (timeFilter === 'all') label = 'All Time';
+    else if (timeFilter === 'today') label = 'Today';
+    else label = `Last ${timeFilter} Days`;
+    
+    document.querySelector('#participants-tab h2').textContent = `Participants (${label}: ${total})`;
 }
 
 // Show participant detail
@@ -686,6 +742,12 @@ function openGoogleSheet() {
 
 // Refresh data
 function refreshData() {
+    // Reset filters to all-time view
+    document.getElementById('filter-time').value = 'all';
+    document.getElementById('search-input').value = '';
+    document.getElementById('filter-org').value = '';
+    
+    // Reload data
     loadDashboardData();
 }
 </script>
