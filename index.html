@@ -140,60 +140,84 @@
         animation: slideFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    /* Card exit - thrown/spinning out LEFT */
+    /* Card exit - thrown/spinning out LEFT (SMOOTH!) */
     @keyframes cardThrow {
         0% {
             opacity: 1;
             transform: translateX(0) translateY(0) rotate(0deg) scale(1);
         }
-        20% {
-            opacity: 0.9;
-            transform: translateX(-15px) translateY(-10px) rotate(-45deg) scale(0.98);
+        15% {
+            opacity: 0.95;
+            transform: translateX(-12px) translateY(-8px) rotate(-54deg) scale(0.99);
         }
-        50% {
-            opacity: 0.6;
-            transform: translateX(-70px) translateY(-35px) rotate(-180deg) scale(0.75);
+        30% {
+            opacity: 0.85;
+            transform: translateX(-30px) translateY(-18px) rotate(-108deg) scale(0.95);
+        }
+        45% {
+            opacity: 0.7;
+            transform: translateX(-55px) translateY(-30px) rotate(-162deg) scale(0.88);
+        }
+        60% {
+            opacity: 0.55;
+            transform: translateX(-85px) translateY(-45px) rotate(-216deg) scale(0.78);
         }
         75% {
-            opacity: 0.3;
-            transform: translateX(-120px) translateY(-60px) rotate(-270deg) scale(0.5);
+            opacity: 0.35;
+            transform: translateX(-115px) translateY(-62px) rotate(-270deg) scale(0.65);
+        }
+        90% {
+            opacity: 0.15;
+            transform: translateX(-145px) translateY(-78px) rotate(-324deg) scale(0.45);
         }
         100% {
             opacity: 0;
-            transform: translateX(-160px) translateY(-85px) rotate(-360deg) scale(0.3);
+            transform: translateX(-170px) translateY(-90px) rotate(-360deg) scale(0.3);
         }
     }
     
-    /* Card exit - thrown/spinning out RIGHT */
+    /* Card exit - thrown/spinning out RIGHT (SMOOTH!) */
     @keyframes cardThrowBack {
         0% {
             opacity: 1;
             transform: translateX(0) translateY(0) rotate(0deg) scale(1);
         }
-        20% {
-            opacity: 0.9;
-            transform: translateX(15px) translateY(-10px) rotate(45deg) scale(0.98);
+        15% {
+            opacity: 0.95;
+            transform: translateX(12px) translateY(-8px) rotate(54deg) scale(0.99);
         }
-        50% {
-            opacity: 0.6;
-            transform: translateX(70px) translateY(-35px) rotate(180deg) scale(0.75);
+        30% {
+            opacity: 0.85;
+            transform: translateX(30px) translateY(-18px) rotate(108deg) scale(0.95);
+        }
+        45% {
+            opacity: 0.7;
+            transform: translateX(55px) translateY(-30px) rotate(162deg) scale(0.88);
+        }
+        60% {
+            opacity: 0.55;
+            transform: translateX(85px) translateY(-45px) rotate(216deg) scale(0.78);
         }
         75% {
-            opacity: 0.3;
-            transform: translateX(120px) translateY(-60px) rotate(270deg) scale(0.5);
+            opacity: 0.35;
+            transform: translateX(115px) translateY(-62px) rotate(270deg) scale(0.65);
+        }
+        90% {
+            opacity: 0.15;
+            transform: translateX(145px) translateY(-78px) rotate(324deg) scale(0.45);
         }
         100% {
             opacity: 0;
-            transform: translateX(160px) translateY(-85px) rotate(360deg) scale(0.3);
+            transform: translateX(170px) translateY(-90px) rotate(360deg) scale(0.3);
         }
     }
     
     .card-throw {
-        animation: cardThrow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: cardThrow 0.65s linear forwards;
     }
     
     .card-throw-back {
-        animation: cardThrowBack 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation: cardThrowBack 0.65s linear forwards;
     }
     
     #question-container {
@@ -1900,14 +1924,14 @@ function addTransition(callback, direction = 'forward') {
         container.classList.add('card-throw-back');
     }
     
-    // Wait for throw animation to complete (600ms)
+    // Wait for throw animation to complete (650ms)
     setTimeout(() => {
         // Remove throw classes
         container.classList.remove('card-throw', 'card-throw-back');
         
         // Update content (new card appears naturally - no extra animation!)
         callback();
-    }, 600);
+    }, 650);
 }
 
 function showReview() {
