@@ -140,36 +140,36 @@
         animation: slideFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    /* Card exit - simple smooth rotation LEFT */
-    @keyframes cardThrow {
+    /* Card entrance - slides in from left with subtle float */
+    @keyframes cardEnter {
+        0% {
+            opacity: 0;
+            transform: translateX(-50px) translateY(0);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0) translateY(-3px);
+        }
+    }
+    
+    /* Card exit - slides out to the right */
+    @keyframes cardExit {
         0% {
             opacity: 1;
-            transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+            transform: translateX(0) translateY(-3px);
         }
         100% {
             opacity: 0;
-            transform: translateX(-120px) translateY(-60px) rotate(-90deg) scale(0.5);
+            transform: translateX(100px) translateY(-3px);
         }
     }
     
-    /* Card exit - simple smooth rotation RIGHT */
-    @keyframes cardThrowBack {
-        0% {
-            opacity: 1;
-            transform: translateX(0) translateY(0) rotate(0deg) scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: translateX(120px) translateY(-60px) rotate(90deg) scale(0.5);
-        }
+    .card-enter {
+        animation: cardEnter 0.4s ease-out forwards;
     }
     
-    .card-throw {
-        animation: cardThrow 0.4s ease-out forwards;
-    }
-    
-    .card-throw-back {
-        animation: cardThrowBack 0.4s ease-out forwards;
+    .card-exit {
+        animation: cardExit 0.3s ease-in forwards;
     }
     
     #question-container {
@@ -178,6 +178,7 @@
         position: relative;
         will-change: transform, opacity;
         transition: opacity 0.3s ease-in-out;
+        transform: translateY(-3px);
     }
     
     /* Mobile optimizations */
@@ -1848,42 +1849,33 @@ function handleNext() {
     }
 }
 
-// Track throw direction for alternating effect
-let lastThrowDirection = 'left'; // Will alternate between 'left' and 'right'
-
 function addTransition(callback, direction = 'forward') {
     const container = document.getElementById('question-container');
     
-    // Determine throw direction (alternate each time)
-    let throwDirection;
-    if (direction === 'forward') {
-        throwDirection = lastThrowDirection;
-        // Alternate for next time
-        lastThrowDirection = lastThrowDirection === 'left' ? 'right' : 'left';
-    } else {
-        // Going backward - reverse the pattern
-        throwDirection = lastThrowDirection === 'left' ? 'right' : 'left';
-        lastThrowDirection = lastThrowDirection === 'left' ? 'right' : 'left';
-    }
-    
     // Remove any existing animation classes first
-    container.classList.remove('card-enter', 'card-throw', 'card-throw-back');
+    container.classList.remove('card-enter', 'card-exit');
     
-    // Add appropriate throw animation
-    if (throwDirection === 'left') {
-        container.classList.add('card-throw');
-    } else {
-        container.classList.add('card-throw-back');
-    }
+    // Add exit animation (always slides right)
+    container.classList.add('card-exit');
     
-    // Wait for throw animation to complete (400ms)
+    // Wait for exit animation to complete (300ms)
     setTimeout(() => {
-        // Remove throw classes
-        container.classList.remove('card-throw', 'card-throw-back');
+        // Remove exit class
+        container.classList.remove('card-exit');
         
-        // Update content (new card appears naturally - no extra animation!)
+        // Update content
         callback();
-    }, 400);
+        
+        // Add entrance animation (slides in from left with hover)
+        setTimeout(() => {
+            container.classList.add('card-enter');
+            
+            // Remove entrance class after animation completes (400ms)
+            setTimeout(() => {
+                container.classList.remove('card-enter');
+            }, 400);
+        }, 50);
+    }, 300);
 }
 
 function showReview() {
