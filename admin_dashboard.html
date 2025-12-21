@@ -387,18 +387,30 @@ async function loadDashboardData() {
         const response = await fetch(GOOGLE_SCRIPT_URL + '?action=getData');
         const data = await response.json();
         
+        console.log('Loaded data from Google Sheets:', data);
+        console.log('Number of participants:', data.participants ? data.participants.length : 0);
+        
         allParticipants = data.participants || [];
-        filteredParticipants = [...allParticipants];
+        
+        // Log sample timestamps to check format
+        if (allParticipants.length > 0) {
+            console.log('Sample participant:', allParticipants[0]);
+            console.log('Sample timestamp:', allParticipants[0].timestamp);
+        }
         
         // Set filter to all-time by default
         document.getElementById('filter-time').value = 'all';
+        document.getElementById('search-input').value = '';
+        document.getElementById('filter-org').value = '';
+        
+        // IMPORTANT: Call filterParticipants to ensure filter is applied
+        filterParticipants();
         
         updateStats();
-        renderParticipantsTable();
         renderCharts();
-        updateFilteredStats();
     } catch (error) {
         console.error('Error loading data:', error);
+        console.log('Falling back to sample data');
         // Load sample data for demo
         loadSampleData();
     }
@@ -406,6 +418,10 @@ async function loadDashboardData() {
 
 // Load sample data (for demo purposes)
 function loadSampleData() {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    
     allParticipants = [
         {
             fullName: "Juan Dela Cruz",
@@ -413,7 +429,7 @@ function loadSampleData() {
             email: "juan@example.com",
             ageRange: "25-34",
             organization: "Elders Quorum",
-            timestamp: "2025-01-15T10:30:00Z",
+            timestamp: today.toISOString(),
             avgScore: 3.8,
             responses: [[4,3,4,5,3], [3,3,2,4,3], [5,4,4,3,4], [4,4,5,4,4], [5,4,5,4,5], [4,5,4,4,5]]
         },
@@ -423,16 +439,18 @@ function loadSampleData() {
             email: "maria@example.com",
             ageRange: "35-44",
             organization: "Relief Society",
-            timestamp: "2025-01-14T14:20:00Z",
+            timestamp: yesterday.toISOString(),
             avgScore: 4.2,
             responses: [[5,4,4,5,4], [4,4,4,4,4], [5,4,5,4,4], [4,5,5,4,5], [5,5,4,5,5], [5,4,5,4,5]]
         }
     ];
     
     filteredParticipants = [...allParticipants];
+    document.getElementById('filter-time').value = 'all';
     updateStats();
     renderParticipantsTable();
     renderCharts();
+    updateFilteredStats();
 }
 
 // Update stats
@@ -500,6 +518,9 @@ function filterParticipants() {
     const orgFilter = document.getElementById('filter-org').value;
     const timeFilter = document.getElementById('filter-time').value;
     
+    console.log('Filtering with:', { searchTerm, orgFilter, timeFilter });
+    console.log('Total participants before filter:', allParticipants.length);
+    
     filteredParticipants = allParticipants.filter(p => {
         const matchesSearch = p.fullName.toLowerCase().includes(searchTerm);
         const matchesOrg = !orgFilter || p.organization === orgFilter;
@@ -507,21 +528,39 @@ function filterParticipants() {
         // Time filtering
         let matchesTime = true;
         if (timeFilter !== 'all') {
-            const participantDate = new Date(p.timestamp);
-            const now = new Date();
-            
-            if (timeFilter === 'today') {
-                matchesTime = participantDate.toDateString() === now.toDateString();
-            } else {
-                const daysAgo = parseInt(timeFilter);
-                const cutoffDate = new Date();
-                cutoffDate.setDate(cutoffDate.getDate() - daysAgo);
-                matchesTime = participantDate >= cutoffDate;
+            try {
+                const participantDate = new Date(p.timestamp);
+                const now = new Date();
+                
+                // Check if date is valid
+                if (isNaN(participantDate.getTime())) {
+                    console.warn('Invalid timestamp for participant:', p.fullName, p.timestamp);
+                    matchesTime = false;
+                } else if (timeFilter === 'today') {
+                    matchesTime = participantDate.toDateString() === now.toDateString();
+                } else {
+                    const daysAgo = parseInt(timeFilter);
+                    const cutoffDate = new Date();
+                    cutoffDate.setDate(cutoffDate.getDate() - daysAgo);
+                    matchesTime = participantDate >= cutoffDate;
+                    
+                    console.log('Date comparison:', {
+                        participant: p.fullName,
+                        participantDate: participantDate.toISOString(),
+                        cutoffDate: cutoffDate.toISOString(),
+                        matches: matchesTime
+                    });
+                }
+            } catch (err) {
+                console.error('Error parsing timestamp:', err, p.timestamp);
+                matchesTime = false;
             }
         }
         
         return matchesSearch && matchesOrg && matchesTime;
     });
+    
+    console.log('Filtered participants:', filteredParticipants.length);
     
     renderParticipantsTable();
     updateFilteredStats();
