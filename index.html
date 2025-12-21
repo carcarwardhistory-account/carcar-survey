@@ -140,84 +140,36 @@
         animation: slideFromLeft 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    /* Card exit - thrown/spinning out LEFT (SMOOTH!) */
+    /* Card exit - simple smooth rotation LEFT */
     @keyframes cardThrow {
         0% {
             opacity: 1;
             transform: translateX(0) translateY(0) rotate(0deg) scale(1);
         }
-        15% {
-            opacity: 0.95;
-            transform: translateX(-12px) translateY(-8px) rotate(-54deg) scale(0.99);
-        }
-        30% {
-            opacity: 0.85;
-            transform: translateX(-30px) translateY(-18px) rotate(-108deg) scale(0.95);
-        }
-        45% {
-            opacity: 0.7;
-            transform: translateX(-55px) translateY(-30px) rotate(-162deg) scale(0.88);
-        }
-        60% {
-            opacity: 0.55;
-            transform: translateX(-85px) translateY(-45px) rotate(-216deg) scale(0.78);
-        }
-        75% {
-            opacity: 0.35;
-            transform: translateX(-115px) translateY(-62px) rotate(-270deg) scale(0.65);
-        }
-        90% {
-            opacity: 0.15;
-            transform: translateX(-145px) translateY(-78px) rotate(-324deg) scale(0.45);
-        }
         100% {
             opacity: 0;
-            transform: translateX(-170px) translateY(-90px) rotate(-360deg) scale(0.3);
+            transform: translateX(-120px) translateY(-60px) rotate(-90deg) scale(0.5);
         }
     }
     
-    /* Card exit - thrown/spinning out RIGHT (SMOOTH!) */
+    /* Card exit - simple smooth rotation RIGHT */
     @keyframes cardThrowBack {
         0% {
             opacity: 1;
             transform: translateX(0) translateY(0) rotate(0deg) scale(1);
         }
-        15% {
-            opacity: 0.95;
-            transform: translateX(12px) translateY(-8px) rotate(54deg) scale(0.99);
-        }
-        30% {
-            opacity: 0.85;
-            transform: translateX(30px) translateY(-18px) rotate(108deg) scale(0.95);
-        }
-        45% {
-            opacity: 0.7;
-            transform: translateX(55px) translateY(-30px) rotate(162deg) scale(0.88);
-        }
-        60% {
-            opacity: 0.55;
-            transform: translateX(85px) translateY(-45px) rotate(216deg) scale(0.78);
-        }
-        75% {
-            opacity: 0.35;
-            transform: translateX(115px) translateY(-62px) rotate(270deg) scale(0.65);
-        }
-        90% {
-            opacity: 0.15;
-            transform: translateX(145px) translateY(-78px) rotate(324deg) scale(0.45);
-        }
         100% {
             opacity: 0;
-            transform: translateX(170px) translateY(-90px) rotate(360deg) scale(0.3);
+            transform: translateX(120px) translateY(-60px) rotate(90deg) scale(0.5);
         }
     }
     
     .card-throw {
-        animation: cardThrow 0.65s linear forwards;
+        animation: cardThrow 0.4s ease-out forwards;
     }
     
     .card-throw-back {
-        animation: cardThrowBack 0.65s linear forwards;
+        animation: cardThrowBack 0.4s ease-out forwards;
     }
     
     #question-container {
@@ -1924,14 +1876,14 @@ function addTransition(callback, direction = 'forward') {
         container.classList.add('card-throw-back');
     }
     
-    // Wait for throw animation to complete (650ms)
+    // Wait for throw animation to complete (400ms)
     setTimeout(() => {
         // Remove throw classes
         container.classList.remove('card-throw', 'card-throw-back');
         
         // Update content (new card appears naturally - no extra animation!)
         callback();
-    }, 650);
+    }, 400);
 }
 
 function showReview() {
